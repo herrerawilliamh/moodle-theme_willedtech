@@ -1,7 +1,7 @@
 // WillEdTech Campus · panel de Administración del sitio (templates/admin_panel.mustache).
 // Mismo lenguaje que el resto de Campus: tarjetas blancas con radio 1:3, una sola tarjeta con foco (la del estado
 // cuando algo falla) y el estado siempre escrito, no solo en color.
-$wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-violet-950, 0.06), 0 4px 12px rgba($wt-violet-950, 0.04);
+$wt-ap-ring: 0 0 0 1px wt-c(shadow, 0.07), 0 1px 2px -1px wt-c(shadow, 0.06), 0 4px 12px wt-c(shadow, 0.04);
 
 .wt-adminpanel {
     display: flex;
@@ -18,7 +18,7 @@ $wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-viole
     }
 
     .wt-ap-card {
-        background: #fff;
+        background: wt-c(surface);
         border-radius: 0.5rem 1.5rem 0.5rem 1.5rem;
         box-shadow: $wt-ap-ring;
         padding: 1.5rem 1.75rem;
@@ -37,7 +37,7 @@ $wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-viole
     }
 
     .wt-ap-health.is-alert {
-        box-shadow: 0 0 0 2px $wt-violet-950, 0 0.75rem 2rem rgba($wt-violet-950, 0.08);
+        box-shadow: 0 0 0 2px wt-c(ink), 0 0.75rem 2rem wt-c(shadow, 0.08);
     }
 
     .wt-ap-head {
@@ -62,7 +62,7 @@ $wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-viole
 
     .wt-ap-sub {
         margin: 0;
-        color: $wt-ink-soft;
+        color: wt-c(ink-soft);
     }
 
     .wt-ap-more {
@@ -82,18 +82,18 @@ $wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-viole
 
     // Tonos de estado: fondo claro y texto oscuro del mismo matiz (contraste AA).
     .wt-ap-tone-ok {
-        background: #dbf7e7;
-        color: #1a6b48;
+        background: wt-c(success-soft);
+        color: wt-c(success-ink);
     }
 
     .wt-ap-tone-warning {
-        background: #fef4e4;
-        color: #7e490a;
+        background: wt-c(warning-soft);
+        color: wt-c(warning-ink);
     }
 
     .wt-ap-tone-error {
-        background: #fbe8e8;
-        color: #952133;
+        background: wt-c(error-soft);
+        color: wt-c(error-ink);
     }
 
     .wt-ap-checks {
@@ -108,7 +108,7 @@ $wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-viole
         flex-wrap: wrap;
         gap: 0.5rem 0.875rem;
         padding: 0.75rem 0;
-        border-top: 1px solid $wt-surface-sunken;
+        border-top: 1px solid wt-c(surface-sunken);
     }
 
     .wt-ap-dot {
@@ -134,7 +134,7 @@ $wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-viole
 
     .wt-ap-checksummary {
         display: block;
-        color: $wt-ink-soft;
+        color: wt-c(ink-soft);
         font-size: $font-size-sm;
     }
 
@@ -166,7 +166,7 @@ $wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-viole
             min-height: 2.75rem;
             cursor: pointer;
             font-weight: 700;
-            color: $wt-violet-ink;
+            color: wt-c(primary-ink);
         }
     }
 
@@ -176,7 +176,7 @@ $wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-viole
         flex-wrap: wrap;
         gap: 0.5rem;
         margin: 0.75rem 0 0.625rem;
-        color: $wt-ink-soft;
+        color: wt-c(ink-soft);
     }
 
     .wt-ap-bignum {
@@ -184,14 +184,14 @@ $wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-viole
         font-weight: 800;
         font-size: 2.75rem;
         line-height: 1;
-        color: $wt-ink;
+        color: wt-c(ink);
         font-variant-numeric: tabular-nums;
     }
 
     .wt-ap-progress {
         height: 0.625rem;
         border-radius: 0.1875rem 0.375rem 0.1875rem 0.375rem;
-        background: $wt-line;
+        background: wt-c(line);
 
         .progress-bar {
             background: $wt-product-campus;
@@ -207,7 +207,7 @@ $wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-viole
         dt {
             font-size: 0.75rem;
             font-weight: 700;
-            color: $wt-ink-soft;
+            color: wt-c(ink-soft);
         }
 
         dd {
@@ -236,20 +236,20 @@ $wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-viole
         box-sizing: border-box;
         padding: 1rem;
         border-radius: 0.375rem 1.125rem 0.375rem 1.125rem;
-        background: #fff;
-        box-shadow: 0 0 0 1px rgba($wt-violet-950, 0.08);
-        color: $wt-ink;
+        background: wt-c(surface);
+        box-shadow: 0 0 0 1px wt-c(shadow, 0.08);
+        color: wt-c(ink);
         text-decoration: none;
         transition: background-color 140ms $wt-ease-out, box-shadow 140ms $wt-ease-out;
 
         &:hover {
-            background: #f4f7fd;
-            box-shadow: 0 0 0 1px #cad5f3;
-            color: $wt-ink;
+            background: wt-c(primary-soft);
+            box-shadow: 0 0 0 1px wt-c(primary-line);
+            color: wt-c(ink);
         }
 
         &:focus-visible {
-            outline: 2px solid $wt-focus;
+            outline: 2px solid wt-c(focus);
             outline-offset: 2px;
         }
 
@@ -269,7 +269,7 @@ $wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-viole
             }
 
             &:hover {
-                background: $wt-violet-ink;
+                background: #363b93;
                 color: #fff;
             }
         }
@@ -280,8 +280,8 @@ $wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-viole
         width: 2.75rem;
         height: 2.75rem;
         border-radius: 0.375rem 0.875rem 0.375rem 0.875rem;
-        background: #e6ebfa;
-        color: $wt-violet-ink;
+        background: wt-c(primary-soft);
+        color: wt-c(primary-ink);
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -298,7 +298,7 @@ $wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-viole
 
     .wt-ap-taskhint {
         display: block;
-        color: $wt-ink-soft;
+        color: wt-c(ink-soft);
         font-size: $font-size-sm;
     }
 
@@ -309,7 +309,7 @@ $wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-viole
 
         li {
             padding: 0.625rem 0;
-            border-top: 1px solid $wt-surface-sunken;
+            border-top: 1px solid wt-c(surface-sunken);
         }
     }
 
@@ -321,7 +321,7 @@ $wt-ap-ring: 0 0 0 1px rgba($wt-violet-950, 0.07), 0 1px 2px -1px rgba($wt-viole
 
     .wt-ap-logmeta {
         display: block;
-        color: $wt-ink-soft;
+        color: wt-c(ink-soft);
         font-size: $font-size-sm;
     }
 

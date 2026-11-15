@@ -3,7 +3,7 @@
 
 // ── Barra superior: el lockup oficial manda por altura ──────────────────
 .navbar.fixed-top {
-    border-bottom: 1px solid $wt-line;
+    border-bottom: 1px solid wt-c(line);
     box-shadow: none;
 
     .navbar-brand {
@@ -21,7 +21,7 @@
         }
 
         &:focus-visible {
-            outline: 2px solid $wt-focus;
+            outline: 2px solid wt-c(focus);
             outline-offset: 4px;
             box-shadow: none;
         }
@@ -60,7 +60,7 @@
 #page-login-index {
     .login-container {
         border-radius: 0.5rem 1.5rem 0.5rem 1.5rem;
-        box-shadow: 0 0.5rem 1.5rem rgba($wt-line, 0.5);
+        box-shadow: 0 0.5rem 1.5rem wt-c(line, 0.5);
     }
 
     .login-logo {
@@ -124,11 +124,11 @@
             transition: background-color 140ms $wt-ease-out, color 140ms $wt-ease-out;
 
             &:hover {
-                background-color: rgba($wt-line, 0.35);
+                background-color: wt-c(line, 0.35);
             }
 
             &:focus-visible {
-                outline: 2px solid $wt-focus;
+                outline: 2px solid wt-c(focus);
                 outline-offset: -2px;
                 box-shadow: none;
             }
@@ -150,7 +150,7 @@
 // En el diseño con cajones, body mide lo mismo que la ventana y el contenido se desborda por debajo:
 // sin esto asoma el blanco de html y la página se parte en dos tonos al hacer scroll.
 html {
-    background-color: $body-bg;
+    background-color: var(--bs-body-bg);
 }
 
 // ── Tipografía ──────────────────────────────────────────────────────────
@@ -217,8 +217,8 @@ h1, h2, h3, .h1, .h2, .h3,
 
     .block_myoverview .card,
     .block_timeline .card {
-        border-color: $wt-line;
-        box-shadow: 0 0.25rem 1rem rgba($wt-line, 0.5);
+        border-color: wt-c(line);
+        box-shadow: 0 0.25rem 1rem wt-c(line, 0.5);
     }
 
     // Tarjetas de curso: portada con proporción estable y elevación sutil al enfocar o pasar el cursor.
@@ -228,12 +228,12 @@ h1, h2, h3, .h1, .h2, .h3,
         overflow: hidden;
 
         &:hover {
-            box-shadow: 0 0.5rem 1.5rem rgba($wt-line, 0.9);
+            box-shadow: 0 0.5rem 1.5rem wt-c(line, 0.9);
             transform: translateY(-2px);
         }
 
         &:focus-within {
-            box-shadow: 0 0.5rem 1.5rem rgba($wt-line, 0.9);
+            box-shadow: 0 0.5rem 1.5rem wt-c(line, 0.9);
         }
 
         .card-img-top,
@@ -242,7 +242,7 @@ h1, h2, h3, .h1, .h2, .h3,
             height: auto;
             min-height: 7rem;
             object-fit: cover;
-            background-color: $wt-surface-sunken;
+            background-color: wt-c(surface-sunken);
         }
 
         .coursename {
@@ -251,7 +251,7 @@ h1, h2, h3, .h1, .h2, .h3,
         }
 
         a:focus-visible {
-            outline: 2px solid $wt-focus;
+            outline: 2px solid wt-c(focus);
             outline-offset: 2px;
             box-shadow: none;
         }
@@ -259,7 +259,7 @@ h1, h2, h3, .h1, .h2, .h3,
 
     // Solo estético: los valores y roles ARIA los aporta Moodle.
     .block_myoverview .progress {
-        background-color: $wt-surface-sunken;
+        background-color: wt-c(surface-sunken);
     }
 
     // Estado vacío: mensaje centrado con aire suficiente.
@@ -268,7 +268,7 @@ h1, h2, h3, .h1, .h2, .h3,
     .empty-placeholder {
         padding: 2rem 1rem;
         text-align: center;
-        color: $wt-ink-soft;
+        color: wt-c(ink-soft);
 
         img {
             max-width: 12rem;
@@ -313,7 +313,7 @@ h1, h2, h3, .h1, .h2, .h3,
     display: flex;
     flex-direction: column;
     width: 100%;
-    border-color: $wt-line;
+    border-color: wt-c(line);
     overflow: hidden;
 
     .wt-coursecard-cover-link {
@@ -322,13 +322,13 @@ h1, h2, h3, .h1, .h2, .h3,
 
     .wt-coursecard-cover {
         aspect-ratio: 16 / 9;
-        background-color: $wt-surface-sunken;
+        background-color: wt-c(surface-sunken);
         background-size: cover;
         background-position: center;
     }
 
     .wt-coursecard-cover-empty {
-        background-image: linear-gradient(135deg, $wt-surface-sunken, $wt-line);
+        background-image: linear-gradient(135deg, wt-c(surface-sunken), wt-c(line));
     }
 
     .card-body {
@@ -345,7 +345,7 @@ h1, h2, h3, .h1, .h2, .h3,
     }
 
     a:focus-visible {
-        outline: 2px solid $wt-focus;
+        outline: 2px solid wt-c(focus);
         outline-offset: 2px;
         box-shadow: none;
     }
@@ -370,7 +370,7 @@ h1, h2, h3, .h1, .h2, .h3,
     }
 
     .wt-catalog-card {
-        box-shadow: 0 0.25rem 1rem rgba($wt-line, 0.5);
+        box-shadow: 0 0.25rem 1rem wt-c(line, 0.5);
 
         .coursename {
             font-size: 1.125rem;
@@ -380,7 +380,7 @@ h1, h2, h3, .h1, .h2, .h3,
         }
 
         .summary {
-            color: $wt-ink-soft;
+            color: wt-c(ink-soft);
             margin-bottom: 0.75rem;
             // Resúmenes largos no deben romper la cuadrícula.
             display: -webkit-box;
@@ -402,7 +402,7 @@ h1, h2, h3, .h1, .h2, .h3,
         }
 
         &.wt-dimmed .coursename a {
-            color: $wt-ink-soft;
+            color: wt-c(ink-soft);
         }
     }
 
@@ -467,7 +467,7 @@ body[class*="path-course-view"] {
     padding: 1.75rem 2rem;
     margin-bottom: 1.5rem;
     border-radius: 0.5rem 1.5rem 0.5rem 1.5rem;
-    background: linear-gradient(135deg, $wt-violet-950, $wt-violet-ink);
+    background: linear-gradient(135deg, $wt-violet-950, #363b93);
     color: #fff;
 
     .wt-hero-eyebrow {
@@ -564,11 +564,11 @@ body[class*="path-course-view"] {
     }
 
     .wt-coursecard {
-        box-shadow: 0 0.25rem 1rem rgba($wt-line, 0.5);
+        box-shadow: 0 0.25rem 1rem wt-c(line, 0.5);
         transition: box-shadow 0.2s $wt-ease-out, transform 0.2s $wt-ease-out;
 
         &:hover {
-            box-shadow: 0 0.5rem 1.5rem rgba($wt-violet-950, 0.15);
+            box-shadow: 0 0.5rem 1.5rem wt-c(shadow, 0.15);
             transform: translateY(-2px);
         }
 
@@ -596,9 +596,9 @@ body[class*="path-course-view"] {
 }
 
 .wt-zerostate [data-region="empty-message"] {
-    border: 1px dashed $wt-line;
+    border: 1px dashed wt-c(line);
     border-radius: 0.75rem;
-    background: $wt-surface-sunken;
+    background: wt-c(surface-sunken);
     padding: 2rem 1rem;
 }
 
@@ -607,9 +607,9 @@ body[class*="path-course-view"] {
 // de esa tarjeta; no se añade otra caja alrededor (antes salía una caja dentro de otra).
 body[class*="path-course-view"] {
     .course-section > .section-item {
-        border-color: $wt-line;
+        border-color: wt-c(line);
         border-radius: 0.5rem 1.25rem 0.5rem 1.25rem;
-        box-shadow: 0 0.25rem 1rem rgba($wt-line, 0.5);
+        box-shadow: 0 0.25rem 1rem wt-c(line, 0.5);
         overflow: hidden;
 
         .course-section-header {
@@ -617,8 +617,8 @@ body[class*="path-course-view"] {
         }
 
         .course-content-item-content .section-content-inner {
-            background-color: $wt-canvas;
-            border-top-color: $wt-line;
+            background-color: wt-c(canvas);
+            border-top-color: wt-c(line);
         }
     }
 
@@ -634,11 +634,11 @@ body[class*="path-course-view"] {
 
     .activity-item {
         border-radius: 0.5rem;
-        border-color: $wt-line;
+        border-color: wt-c(line);
         transition: background-color 0.15s $wt-ease-out;
 
         &:hover {
-            background-color: $wt-surface-sunken;
+            background-color: wt-c(surface-sunken);
         }
     }
 
@@ -646,7 +646,7 @@ body[class*="path-course-view"] {
     .course-content a:focus-visible,
     .courseindex a:focus-visible,
     .activity-item a:focus-visible {
-        outline: 2px solid $wt-focus;
+        outline: 2px solid wt-c(focus);
         outline-offset: 2px;
         box-shadow: none;
     }
@@ -663,9 +663,9 @@ body[class*="path-course-view"] {
 // Franja sobria al final de cada página; la ayuda (?) de Boost sigue flotando aparte.
 .wt-sitefooter {
     margin-top: 2rem;
-    border-top: 1px solid $wt-line;
-    background-color: #fff;
-    color: $wt-ink-soft;
+    border-top: 1px solid wt-c(line);
+    background-color: wt-c(surface);
+    color: wt-c(ink-soft);
 
     .wt-sitefooter-inner {
         display: grid;
@@ -695,15 +695,15 @@ body[class*="path-course-view"] {
         gap: 0.25rem 1.5rem;
 
         a {
-            color: $wt-ink;
+            color: wt-c(ink);
             font-weight: 600;
 
             &:hover {
-                color: $wt-violet-ink;
+                color: wt-c(primary-ink);
             }
 
             &:focus-visible {
-                outline: 2px solid $wt-focus;
+                outline: 2px solid wt-c(focus);
                 outline-offset: 2px;
                 box-shadow: none;
             }
@@ -714,7 +714,7 @@ body[class*="path-course-view"] {
         grid-column: 1 / -1;
         margin: 0;
         padding-top: 1rem;
-        border-top: 1px solid $wt-line;
+        border-top: 1px solid wt-c(line);
         font-size: $font-size-sm;
     }
 }
@@ -745,4 +745,15 @@ body[class*="path-course-view"] {
 // Si las dos se ocultan, la fila que las contenía tampoco deja hueco.
 #page-my-index:has(.wt-hero-create):has(.wt-hero-manage) .block-myoverview > .d-flex:not(:has(> :not(form[action*="/course/edit.php"]):not(form[action*="/course/management.php"]))) {
     display: none !important;
+}
+
+// ── Modo oscuro: logos ──────────────────────────────────────────────────
+// Los lockups SVG pintan con currentColor, que dentro de <img> es negro. En oscuro se invierten a claro;
+// hue-rotate(180deg) devuelve el punto de Campus a su verde azulado tras la inversión.
+html[data-bs-theme="dark"] {
+    .navbar.fixed-top .navbar-brand .logo,
+    .login-logo #logoimage,
+    .wt-sitefooter .wt-sitefooter-logo {
+        filter: invert(1) hue-rotate(180deg);
+    }
 }

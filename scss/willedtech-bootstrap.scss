@@ -1,0 +1,56 @@
+// WillEdTech · variables de Bootstrap 5 (Brand 3.2).
+// Para LMS y sitios construidos sobre Bootstrap: Moodle (tema Boost y sus hijos), Open edX, Chamilo…
+// Se carga ANTES de Bootstrap (en Moodle, en el SCSS previo del tema). Los valores salen de
+// tokens/tailwind.config.js; no añadas colores fuera de esta lista. Ver BRAND.md §11.
+
+// ── Color ──────────────────────────────────────────────────────────────
+$wt-violet: #5464bf;
+$wt-violet-ink: #363b93; // violet-700, texto y enlaces sobre blanco (AA)
+$wt-violet-950: #121137;
+$wt-yellow: #f2e205;
+$wt-orange: #f27405;
+$wt-ink: #0c0e15;
+$wt-ink-soft: #565862;
+$wt-ink-faint: #6f727c;
+$wt-line: #e5e6e9;
+$wt-canvas: #fafafd;
+$wt-surface-sunken: #f3f4f6;
+$wt-focus: #cb5d13; // orange-600, anillo de foco >= 3:1
+
+// Colores de producto: solo identidad (monogramas, acentos de marca), nunca estados.
+$wt-product-learning: #5464bf;
+$wt-product-studio: #f2e205;
+$wt-product-interact: #f27405;
+$wt-product-campus: #0d9488;
+
+$primary: $wt-violet;
+$secondary: $wt-ink-soft;
+$success: #17845a; // success-600: admite texto blanco
+$info: #1f5e84; // info-700
+$warning: #fda900; // con texto oscuro
+$danger: #b7283f; // error-600
+$light: $wt-surface-sunken;
+$dark: $wt-ink;
+
+$body-bg: $wt-canvas;
+$body-color: $wt-ink;
+$text-muted: $wt-ink-soft;
+$link-color: $wt-violet-ink;
+$border-color: $wt-line;
+
+// ── Tipografía ─────────────────────────────────────────────────────────
+$font-family-sans-serif: 'Atkinson Hyperlegible', 'Atkinson Hyperlegible Next', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+$headings-font-family: 'Merriweather Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+$headings-font-weight: 800;
+$font-size-base: 1rem;
+$line-height-base: 1.55;
+
+// ── Forma ──────────────────────────────────────────────────────────────
+$border-radius-sm: 0.25rem;
+$border-radius: 0.5rem;
+$border-radius-lg: 1rem;
+
+// ── Foco ───────────────────────────────────────────────────────────────
+$input-btn-focus-width: 0.2rem;
+$input-btn-focus-color: rgba($wt-focus, 0.45);
+$focus-ring-color: rgba($wt-focus, 0.45);

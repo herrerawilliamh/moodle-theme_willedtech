@@ -1,0 +1,74 @@
+{
+  "app": "campus",
+  "brand": {
+    "repo": "willedtech/brand",
+    "version": "3.2.0",
+    "commit": "97ab752b7480a03948997ab66d48592ec5eb6c32",
+    "manifestSha256": "1a13d517850edc57f98510a5312d65d60e33e529ddc16b670c67d16487cdd425"
+  },
+  "verifier": "tools/brand-verify.mjs",
+  "files": [
+    {
+      "from": "products/campus/campus-horizontal.svg",
+      "to": "pix/campus-horizontal.svg",
+      "sha256": "30b858f6d606a95f29576407a445dd748956e78d910c1e5ee9b87866bb3fca93"
+    },
+    {
+      "from": "products/campus/campus-compacto.svg",
+      "to": "pix/campus-compacto.svg",
+      "sha256": "395d52ed5c73f55618a27a90d728af4b6ade947badee6499bb9ae0a34f852285"
+    },
+    {
+      "from": "products/campus/campus-vertical.svg",
+      "to": "pix/campus-vertical.svg",
+      "sha256": "34a3d17b5c40da197937720cb02c69c6eb4753d8d0d71312799ee536e7c99404"
+    },
+    {
+      "from": "logo/favicon.svg",
+      "to": "pix/favicon.svg",
+      "sha256": "a9212f6a241c8fc22041ea4478b763b1936300db50437bde4fe7d5a6c54b587d"
+    },
+    {
+      "from": "tokens/willedtech.css",
+      "to": "style/willedtech.css",
+      "sha256": "f0b8fc7f9ca7d1bb4f792d72d51615f70185fe0285bb70a65c66a8e60ac9b625"
+    },
+    {
+      "from": "tokens/willedtech-motion.css",
+      "to": "style/willedtech-motion.css",
+      "sha256": "03d8ecd143478aaeb0dfb56e7049c5991727267ef59e6d6421222c0f6c55660a"
+    },
+    {
+      "from": "tokens/willedtech-bootstrap.scss",
+      "to": "scss/willedtech-bootstrap.scss",
+      "sha256": "6655f5a6b76e4a9e2167560ead95c701ab5760d29cf75325927ed3acd3a74e68"
+    },
+    {
+      "from": "tools/brand-verify.mjs",
+      "to": "tools/brand-verify.mjs",
+      "sha256": "08dfda00d5dc12c10893dc47a0fe89056b74fc126bdfa83d570760d1c174e1f1"
+    }
+  ],
+  "local": [
+    {
+      "path": "fonts/atkinson-hyperlegible-latin-400-normal.woff2",
+      "reason": "Fuente de terceros (Fontsource, SIL OFL 1.1) autoalojada por el tema."
+    },
+    {
+      "path": "fonts/atkinson-hyperlegible-latin-700-normal.woff2",
+      "reason": "Fuente de terceros (Fontsource, SIL OFL 1.1) autoalojada por el tema."
+    },
+    {
+      "path": "fonts/merriweather-sans-latin-800-normal.woff2",
+      "reason": "Fuente de terceros (Fontsource, SIL OFL 1.1) autoalojada por el tema."
+    },
+    {
+      "path": "scss/pre.scss",
+      "reason": "Ajustes de Moodle propios del tema."
+    },
+    {
+      "path": "scss/post.scss",
+      "reason": "Acabado de marca sobre Boost, propio del tema."
+    }
+  ]
+}

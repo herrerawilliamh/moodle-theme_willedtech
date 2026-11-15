@@ -1,0 +1,99 @@
+// WillEdTech Campus · acabado de marca sobre Boost (BRAND.md §7, §9 y §11).
+// Solo se tocan la barra, la tipografía y la forma de los componentes. El contenido de los cursos no se toca.
+
+// ── Barra superior: el lockup oficial manda por altura ──────────────────
+.navbar.fixed-top {
+    border-bottom: 1px solid $wt-line;
+    box-shadow: none;
+
+    .navbar-brand {
+        // Área de protección: 25 % de la altura del lockup.
+        margin-right: 1.5rem !important;
+        border-radius: 0.25rem 0.75rem 0.25rem 0.75rem;
+
+        .logo {
+            display: block;
+            height: 52px;
+            width: auto;
+            max-width: none;
+            max-height: none;
+            margin: 0 !important;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $wt-focus;
+            outline-offset: 4px;
+            box-shadow: none;
+        }
+    }
+}
+
+// Nivel medio (641 a 1120 px).
+@media (max-width: 1120px) {
+    .navbar.fixed-top .navbar-brand .logo {
+        height: 44px;
+    }
+}
+
+// Nivel compacto: Boost oculta la marca por debajo de 768 px; aquí se muestra la variante oficial compacta.
+@include media-breakpoint-down(md) {
+    .navbar.fixed-top .navbar-brand {
+        display: flex !important;
+        margin-right: auto !important;
+
+        .logo {
+            height: 36px;
+            content: url([[pix:theme|campus-compacto]]);
+        }
+    }
+}
+
+// ── Pantalla de acceso: lockup vertical ─────────────────────────────────
+.login-logo #logoimage {
+    height: 112px;
+    width: auto;
+    max-width: 100%;
+    max-height: none;
+}
+
+// ── Tipografía ──────────────────────────────────────────────────────────
+h1, h2, h3, .h1, .h2, .h3,
+.page-header-headings h1 {
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+}
+
+// ── Forma: radios asimétricos 1:3, la firma de la familia ───────────────
+.card {
+    border-radius: 0.5rem 1.5rem 0.5rem 1.5rem;
+}
+.card > .card-img-top:first-child,
+.dashboard-card .card-img-top {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 1.5rem;
+}
+
+.btn-primary, .btn-secondary, .btn-outline-primary, .btn-outline-secondary {
+    &:not(.btn-icon):not(.rounded-circle) {
+        border-radius: 0.25rem 0.75rem 0.25rem 0.75rem;
+    }
+}
+
+// ── Respuesta al pulsar (BRAND.md §8) ───────────────────────────────────
+.btn {
+    transition: $btn-transition, transform 140ms $wt-ease-out;
+
+    &:active:not(:disabled) {
+        transform: scale(0.97);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn {
+        transition: $btn-transition;
+
+        &:active:not(:disabled) {
+            transform: none;
+        }
+    }
+}

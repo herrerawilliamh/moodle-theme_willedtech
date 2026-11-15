@@ -1,0 +1,22 @@
+// Tipografías de marca autoalojadas (Fontsource, SIL OFL 1.1; licencias en fonts/).
+@font-face {
+    font-family: 'Atkinson Hyperlegible';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url([[font:theme|atkinson-hyperlegible-latin-400-normal.woff2]]) format('woff2');
+}
+@font-face {
+    font-family: 'Atkinson Hyperlegible';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url([[font:theme|atkinson-hyperlegible-latin-700-normal.woff2]]) format('woff2');
+}
+@font-face {
+    font-family: 'Merriweather Sans';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url([[font:theme|merriweather-sans-latin-800-normal.woff2]]) format('woff2');
+}

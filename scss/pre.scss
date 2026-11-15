@@ -1,0 +1,9 @@
+// WillEdTech Campus · ajustes de Moodle que van antes de Bootstrap y Boost.
+// Los tokens de marca están en willedtech-bootstrap.scss (copia sincronizada de Brand; no se edita aquí).
+
+// Barra superior del nivel amplio de BRAND.md §7. Boost usa una sola altura para la barra y
+// el desplazamiento de la página, así que el nivel medio conserva 72 px y solo reduce el lockup.
+$navbar-height: 72px;
+
+// Curvas de BRAND.md §8.
+$wt-ease-out: cubic-bezier(0.23, 1, 0.32, 1);

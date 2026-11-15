@@ -55,5 +55,6 @@ function theme_willedtech_get_pre_scss($theme) {
  */
 function theme_willedtech_get_extra_scss($theme) {
     return file_get_contents(__DIR__ . '/scss/fonts.scss') . "\n"
-        . file_get_contents(__DIR__ . '/scss/post.scss');
+        . file_get_contents(__DIR__ . '/scss/post.scss') . "\n"
+        . file_get_contents(__DIR__ . '/scss/admin.scss');
 }

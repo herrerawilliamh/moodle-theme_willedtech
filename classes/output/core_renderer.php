@@ -69,6 +69,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
      */
     public function full_header() {
         $html = parent::full_header();
+        if ($this->is_admin_home()) {
+            // Va detrás del encabezado (título y buscador de ajustes) y antes de las pestañas con todos los ajustes.
+            return $html . $this->render_from_template('theme_willedtech/admin_panel',
+                (new admin_panel())->export_for_template($this));
+        }
         if ($this->page->pagelayout !== 'mydashboard' || !isloggedin() || isguestuser()) {
             return $html;
         }
@@ -109,5 +114,17 @@ class core_renderer extends \theme_boost\output\core_renderer {
             'canmanage' => $canmanage,
         ];
         return $this->render_from_template('theme_willedtech/dashboard_hero', $data) . $html;
+    }
+
+    /**
+     * Portada de Administración del sitio (admin/search.php sin búsqueda) vista por quien administra el sitio.
+     *
+     * @return bool
+     */
+    protected function is_admin_home(): bool {
+        if ($this->page->pagetype !== 'admin-search' || optional_param('query', '', PARAM_NOTAGS) !== '') {
+            return false;
+        }
+        return has_capability('moodle/site:config', \context_system::instance());
     }
 }

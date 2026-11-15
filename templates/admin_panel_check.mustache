@@ -1,0 +1,36 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_willedtech/admin_panel_check
+
+    Una comprobación de estado del panel de administración. El estado se lee en el texto, no solo en el color.
+
+    Example context (json):
+    {"tone": "warning", "name": "Correo saliente", "summary": "Sin servidor SMTP.", "state": "Revisar", "hasaction": true, "actionurl": "#", "actiontext": "Configurar"}
+}}
+<li class="wt-ap-check">
+    <span class="wt-ap-dot wt-ap-tone-{{tone}}" aria-hidden="true">
+        {{#isok}}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>{{/isok}}
+        {{^isok}}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v6M12 17h.01"/></svg>{{/isok}}
+    </span>
+    <span class="wt-ap-checktext">
+        <span class="wt-ap-checkname">{{name}}</span>
+        <span class="wt-ap-checksummary">{{summary}}</span>
+    </span>
+    <span class="wt-ap-chip wt-ap-tone-{{tone}}">{{state}}</span>
+    {{#hasaction}}<a class="wt-ap-action" href="{{actionurl}}">{{actiontext}}</a>{{/hasaction}}
+</li>

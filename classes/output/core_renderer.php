@@ -50,4 +50,14 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function get_logo_url($maxwidth = null, $maxheight = 200) {
         return $this->image_url('campus-vertical', 'theme');
     }
+
+    /**
+     * Favicon: solo la "C" de Campus, sin lockup ni texto (pix/campus-favicon.svg, propio del tema).
+     * No se usa pix/favicon.svg porque es la W de Brand y está bloqueada por brand.lock.json.
+     *
+     * @return \moodle_url
+     */
+    public function favicon(): \moodle_url {
+        return $this->image_url('campus-favicon', 'theme');
+    }
 }

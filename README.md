@@ -4,7 +4,7 @@ Tema hijo de **Boost** que aplica la marca WillEdTech (Brand 3.2) al aula `campu
 Componente: `theme_willedtech`. Probado contra el código de Moodle 5.2 y pensado para 5.0 a 5.3.
 
 ## Qué hace
-- **Marca:** el renderer entrega siempre los lockups oficiales de Campus. Barra superior con `campus-horizontal.svg` (52 px de alto desde 1121 px, 44 px hasta 1120 px) y `campus-compacto.svg` en móvil (36 px). Pantalla de acceso con `campus-vertical.svg`. Favicon: la W oficial.
+- **Marca:** el renderer entrega siempre los lockups oficiales de Campus. Barra superior con `campus-horizontal.svg` (52 px de alto desde 1121 px, 44 px hasta 1120 px) y `campus-compacto.svg` en móvil (36 px). Pantalla de acceso con `campus-vertical.svg`. Favicon: solo la "C" de Campus (`pix/campus-favicon.svg`, propio del tema; el renderer sobrescribe `favicon()`).
 - **Tokens:** `scss/willedtech-bootstrap.scss` traduce la marca a Bootstrap 5 (color, tipografía, radios y foco).
 - **Tipografías:** Merriweather Sans 800 y Atkinson Hyperlegible, autoalojadas (OFL, licencias en `fonts/`).
 - **Acabado:** radios asimétricos 1:3, respuesta al pulsar y foco visible; respeta el movimiento reducido.
@@ -31,3 +31,8 @@ node <brand>/tools/brand-sync.mjs apply --app .     # copia y registra la versi�
 ```
 
 Tras actualizar, sube `$plugin->version` en `version.php` y purga cachés.
+
+## Refinamiento de acceso y navegación (archivos y lógica)
+- `classes/output/core_renderer.php`: `favicon()` devuelve `pix/campus-favicon.svg` (solo la C) sin tocar `pix/favicon.svg` de Brand.
+- `scss/post.scss`: logo vertical de acceso a 72 px (antes 112); `#username` y `#password` (incluido su input-group) con ancho completo y 3 rem de alto; botón de acceso a ancho completo; espaciado, hover y foco de la navegación superior.
+- Naming: cadenas del tema ya dicen "WillEdTech Campus". "Cursos/Mis cursos" son cadenas del core de Moodle y no se tocan; el nombre del sitio se fija en *Página principal > Configuración* (ver Instalar).

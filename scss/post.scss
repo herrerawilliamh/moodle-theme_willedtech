@@ -50,10 +50,101 @@
 
 // ── Pantalla de acceso: lockup vertical ─────────────────────────────────
 .login-logo #logoimage {
-    height: 112px;
+    height: 72px;
     width: auto;
     max-width: 100%;
     max-height: none;
+}
+
+// Formulario de acceso: campos de igual ancho y altura, acceso rápido primero.
+#page-login-index {
+    .login-container {
+        border-radius: 0.5rem 1.5rem 0.5rem 1.5rem;
+        box-shadow: 0 0.5rem 1.5rem rgba($wt-line, 0.5);
+    }
+
+    .login-logo {
+        margin-bottom: 1rem;
+    }
+
+    .login-heading {
+        letter-spacing: -0.02em;
+        margin-bottom: 1.25rem;
+    }
+
+    form .form-control,
+    form .input-group {
+        width: 100%;
+    }
+
+    form input#username,
+    form input#password {
+        min-height: 3rem;
+        padding: 0.5rem 0.875rem;
+        font-size: 1rem;
+        border-radius: 0.25rem 0.75rem 0.25rem 0.75rem;
+    }
+
+    // El campo de contraseña va dentro de un input-group (botón de mostrar): se iguala al de usuario.
+    form .input-group {
+        > input#password {
+            border-radius: 0.25rem 0 0 0.25rem;
+        }
+
+        > .btn {
+            min-height: 3rem;
+            border-radius: 0 0.75rem 0.25rem 0;
+        }
+    }
+
+    form #loginbtn {
+        width: 100%;
+        min-height: 3rem;
+        font-weight: 700;
+    }
+
+    form .form-group,
+    form .mb-3 {
+        margin-bottom: 1rem !important;
+    }
+}
+
+// ── Navegación superior: espaciado y equilibrio ─────────────────────────
+.navbar.fixed-top {
+    padding-top: 0;
+    padding-bottom: 0;
+    align-items: center;
+
+    .primary-navigation .navbar-nav {
+        gap: 0.25rem;
+
+        .nav-link {
+            padding: 0 0.875rem;
+            font-weight: 700;
+            border-radius: 0.25rem 0.75rem 0.25rem 0.75rem;
+            transition: background-color 140ms $wt-ease-out, color 140ms $wt-ease-out;
+
+            &:hover {
+                background-color: rgba($wt-line, 0.35);
+            }
+
+            &:focus-visible {
+                outline: 2px solid $wt-focus;
+                outline-offset: -2px;
+                box-shadow: none;
+            }
+        }
+    }
+
+    .navbar-nav.d-none,
+    .navbar-nav:not(.more-nav) {
+        align-items: center;
+    }
+
+    .popover-region,
+    .usermenu {
+        margin-left: 0.25rem;
+    }
 }
 
 // ── Tipografía ──────────────────────────────────────────────────────────

@@ -146,6 +146,13 @@
     }
 }
 
+// ── Lienzo ──────────────────────────────────────────────────────────────
+// En el diseño con cajones, body mide lo mismo que la ventana y el contenido se desborda por debajo:
+// sin esto asoma el blanco de html y la página se parte en dos tonos al hacer scroll.
+html {
+    background-color: $body-bg;
+}
+
 // ── Tipografía ──────────────────────────────────────────────────────────
 h1, h2, h3, .h1, .h2, .h3,
 .page-header-headings h1 {
@@ -270,16 +277,6 @@ h1, h2, h3, .h1, .h2, .h3,
     }
 }
 
-// Tableta: tarjetas a dos columnas con separación pareja.
-@include media-breakpoint-down(lg) {
-    #page-my-index .dashboard-card-deck,
-    #page-my-courses .dashboard-card-deck,
-    #page-my-index [data-region="card-deck"],
-    #page-my-courses [data-region="card-deck"] {
-        gap: 1rem;
-    }
-}
-
 // Móvil: una columna, portada algo más baja y sin elevación por transform.
 @include media-breakpoint-down(sm) {
     #page-my-index,
@@ -307,4 +304,445 @@ h1, h2, h3, .h1, .h2, .h3,
             transform: none;
         }
     }
+}
+
+// ── Lote 2 · Tarjetas de Campus (Área personal y catálogo) ─────────────
+// Las plantillas del tema (core_course/coursecard, theme_willedtech/catalog_coursecard) aportan la estructura.
+.wt-coursecard,
+.wt-catalog-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-color: $wt-line;
+    overflow: hidden;
+
+    .wt-coursecard-cover-link {
+        display: block;
+    }
+
+    .wt-coursecard-cover {
+        aspect-ratio: 16 / 9;
+        background-color: $wt-surface-sunken;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .wt-coursecard-cover-empty {
+        background-image: linear-gradient(135deg, $wt-surface-sunken, $wt-line);
+    }
+
+    .card-body {
+        flex: 1 1 auto;
+    }
+
+    .wt-coursecard-footer {
+        padding: 0 1rem;
+    }
+
+    .wt-coursecard-action {
+        padding: 0.75rem 1rem 1rem;
+        margin-top: auto;
+    }
+
+    a:focus-visible {
+        outline: 2px solid $wt-focus;
+        outline-offset: 2px;
+        box-shadow: none;
+    }
+}
+
+// ── Catálogo: /course/index.php y búsqueda de cursos ────────────────────
+#page-course-index-category,
+#page-course-index,
+#page-course-search {
+    .courses {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+
+        // Barra de paginación y enlaces «ver más / mostrar todos» ocupan toda la fila.
+        > .paging,
+        > nav,
+        > .pagination {
+            grid-column: 1 / -1;
+        }
+    }
+
+    .wt-catalog-card {
+        box-shadow: 0 0.25rem 1rem rgba($wt-line, 0.5);
+
+        .coursename {
+            font-size: 1.125rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin: 0 0 0.25rem;
+        }
+
+        .summary {
+            color: $wt-ink-soft;
+            margin-bottom: 0.75rem;
+            // Resúmenes largos no deben romper la cuadrícula.
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .teachers {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 0.5rem;
+            font-size: $font-size-sm;
+        }
+
+        .moreinfo {
+            display: inline-block;
+        }
+
+        &.wt-dimmed .coursename a {
+            color: $wt-ink-soft;
+        }
+    }
+
+    // Los cursos ocultos se distinguen sin depender solo del color.
+    .wt-catalog-card.wt-dimmed .card-img-top {
+        opacity: 0.6;
+    }
+
+    // Categorías: lista limpia con jerarquía clara.
+    .course_category_tree .category > .info > .categoryname,
+    .course_category_tree .categoryname {
+        font-weight: 700;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    #page-course-index-category .courses,
+    #page-course-index .courses,
+    #page-course-search .courses {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+// ── Área personal: jerarquía de bienvenida ─────────────────────────────
+#page-my-index #page-header h1,
+#page-my-index .page-header-headings h1 {
+    font-size: $h2-font-size;
+}
+
+// ── Ancho y superficie de las páginas de estudio ────────────────────────
+// El ancho sale de $course-content-maxwidth (pre.scss), el mismo valor con el que Boost ancla los cajones.
+// Aquí solo se aplica a las páginas que Boost dejaría a todo el ancho, sin inventar otro número.
+// La superficie: lienzo claro y bloques como tarjetas blancas, sin un panel blanco que envuelva a otro.
+#page-my-index,
+#page-my-courses,
+#page-course-index,
+#page-course-index-category,
+#page-course-search,
+body[class*="path-course-view"] {
+    @include media-breakpoint-up(md) {
+        #page.drawers .main-inner,
+        .header-maxwidth {
+            max-width: $course-content-maxwidth;
+        }
+    }
+
+    #page.drawers .main-inner {
+        background-color: transparent;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+// ── Área personal ───────────────────────────────────────────────────────
+.wt-hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.75rem 2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.5rem 1.5rem 0.5rem 1.5rem;
+    background: linear-gradient(135deg, $wt-violet-950, $wt-violet-ink);
+    color: #fff;
+
+    .wt-hero-eyebrow {
+        margin: 0 0 0.25rem;
+        font-size: $font-size-sm;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #e9eaff;
+    }
+
+    .wt-hero-title {
+        margin: 0 0 0.5rem;
+        font-size: $h2-font-size;
+        color: #fff;
+    }
+
+    .wt-hero-lead {
+        margin: 0;
+        max-width: 40rem;
+        color: #f1f1fb;
+    }
+
+    .wt-hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    // Botón primario sobre fondo oscuro: invertido para conservar contraste.
+    .btn-primary {
+        background: #fff;
+        border-color: #fff;
+        color: $wt-violet-950;
+    }
+
+    .btn-outline-secondary {
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.7);
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+    }
+
+    .btn:focus-visible {
+        outline: 2px solid $wt-yellow;
+        outline-offset: 2px;
+        box-shadow: none;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .wt-hero {
+        padding: 1.25rem;
+    }
+
+    // Dos columnas: cinco botones apilados ocupaban toda la primera pantalla del móvil.
+    .wt-hero .wt-hero-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .btn {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        .btn:first-child {
+            grid-column: 1 / -1;
+        }
+    }
+}
+
+// Rejilla adaptable de cursos del bloque «Vista general del curso» (vista de tarjetas).
+// core_course/coursecards envuelve cada tarjeta en .col dentro de una .row con row-cols-*: esas clases fijan
+// el ancho de cada .col al 33 %. Al pasar la fila a rejilla hay que anular ese ancho, o cada tarjeta ocupa
+// un tercio de su celda (el fallo de las tarjetas de 100 px).
+#page-my-index .block_myoverview,
+#page-my-courses .block_myoverview {
+    [data-region="card-deck"] {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+        gap: 1.25rem;
+        margin: 0;
+
+        > .col {
+            width: auto;
+            max-width: none;
+            flex: none;
+            padding: 0;
+            margin: 0 !important;
+        }
+    }
+
+    .wt-coursecard {
+        box-shadow: 0 0.25rem 1rem rgba($wt-line, 0.5);
+        transition: box-shadow 0.2s $wt-ease-out, transform 0.2s $wt-ease-out;
+
+        &:hover {
+            box-shadow: 0 0.5rem 1.5rem rgba($wt-violet-950, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .coursename {
+            font-weight: 700;
+            font-size: 1.0625rem;
+            white-space: normal;
+        }
+    }
+
+    .wt-coursecard-code {
+        font-size: $font-size-sm;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #page-my-index .block_myoverview .wt-coursecard,
+    #page-my-courses .block_myoverview .wt-coursecard {
+        transition: none;
+
+        &:hover {
+            transform: none;
+        }
+    }
+}
+
+.wt-zerostate [data-region="empty-message"] {
+    border: 1px dashed $wt-line;
+    border-radius: 0.75rem;
+    background: $wt-surface-sunken;
+    padding: 2rem 1rem;
+}
+
+// ── Interior del curso (/course/view.php) ───────────────────────────────
+// Boost 5.3 ya pinta cada sección como tarjeta (.course-section > .section-item). Solo se cambia el acabado
+// de esa tarjeta; no se añade otra caja alrededor (antes salía una caja dentro de otra).
+body[class*="path-course-view"] {
+    .course-section > .section-item {
+        border-color: $wt-line;
+        border-radius: 0.5rem 1.25rem 0.5rem 1.25rem;
+        box-shadow: 0 0.25rem 1rem rgba($wt-line, 0.5);
+        overflow: hidden;
+
+        .course-section-header {
+            padding: 1rem 1.25rem;
+        }
+
+        .course-content-item-content .section-content-inner {
+            background-color: $wt-canvas;
+            border-top-color: $wt-line;
+        }
+    }
+
+    // Sección vacía: sin franja gris vacía bajo el título. Con edición activa se conserva: es la zona donde se suelta.
+    &:not(.editing) .course-section > .section-item .section-content-inner:not(:has(li)) {
+        display: none;
+    }
+
+    .course-section-header .sectionname,
+    .course-content .section .sectionname {
+        font-weight: 700;
+    }
+
+    .activity-item {
+        border-radius: 0.5rem;
+        border-color: $wt-line;
+        transition: background-color 0.15s $wt-ease-out;
+
+        &:hover {
+            background-color: $wt-surface-sunken;
+        }
+    }
+
+    // Foco visible dentro del contenido del curso, también con el índice del curso.
+    .course-content a:focus-visible,
+    .courseindex a:focus-visible,
+    .activity-item a:focus-visible {
+        outline: 2px solid $wt-focus;
+        outline-offset: 2px;
+        box-shadow: none;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body[class*="path-course-view"] .activity-item {
+        transition: none;
+    }
+}
+
+// ── Pie de página de marca (templates/theme_boost/footer.mustache) ──────
+// Franja sobria al final de cada página; la ayuda (?) de Boost sigue flotando aparte.
+.wt-sitefooter {
+    margin-top: 2rem;
+    border-top: 1px solid $wt-line;
+    background-color: #fff;
+    color: $wt-ink-soft;
+
+    .wt-sitefooter-inner {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 1rem 2rem;
+        max-width: $course-content-maxwidth;
+        margin: 0 auto;
+        padding: 1.75rem 15px;
+    }
+
+    .wt-sitefooter-logo {
+        display: block;
+        height: 40px;
+        width: auto;
+    }
+
+    .wt-sitefooter-tagline {
+        margin: 0.5rem 0 0;
+        font-size: $font-size-sm;
+    }
+
+    .wt-sitefooter-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 0.25rem 1.5rem;
+
+        a {
+            color: $wt-ink;
+            font-weight: 600;
+
+            &:hover {
+                color: $wt-violet-ink;
+            }
+
+            &:focus-visible {
+                outline: 2px solid $wt-focus;
+                outline-offset: 2px;
+                box-shadow: none;
+            }
+        }
+    }
+
+    .wt-sitefooter-legal {
+        grid-column: 1 / -1;
+        margin: 0;
+        padding-top: 1rem;
+        border-top: 1px solid $wt-line;
+        font-size: $font-size-sm;
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .wt-sitefooter .wt-sitefooter-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .wt-sitefooter .wt-sitefooter-nav {
+        justify-content: flex-start;
+    }
+}
+
+// La pantalla de acceso no lleva franja de marca: ya tiene su lockup.
+#page-login-index .wt-sitefooter {
+    display: none;
+}
+
+// ── Área personal: sin acciones repetidas ───────────────────────────────
+// «Vista general de curso» trae sus propios botones Crear curso y Gestionar cursos. Si el encabezado de Campus ya
+// ofrece esa misma acción, el del bloque se oculta; si no la ofrece, el del bloque se queda y nadie pierde el acceso.
+#page-my-index:has(.wt-hero-create) .block-myoverview form[action*="/course/edit.php"],
+#page-my-index:has(.wt-hero-manage) .block-myoverview form[action*="/course/management.php"] {
+    display: none;
+}
+
+// Si las dos se ocultan, la fila que las contenía tampoco deja hueco.
+#page-my-index:has(.wt-hero-create):has(.wt-hero-manage) .block-myoverview > .d-flex:not(:has(> :not(form[action*="/course/edit.php"]):not(form[action*="/course/management.php"]))) {
+    display: none !important;
 }

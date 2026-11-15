@@ -5,5 +5,10 @@
 // el desplazamiento de la página, así que el nivel medio conserva 72 px y solo reduce el lockup.
 $navbar-height: 72px;
 
+// Ancho del contenido. Boost 5.3 ancla los cajones laterales y sus botones a este valor
+// (drawer.scss y layout.scss), así que el ancho se cambia aquí y nunca solo por CSS: si el CSS
+// ensancha .main-inner sin cambiar la variable, los cajones quedan encima del contenido.
+$course-content-maxwidth: 1140px;
+
 // Curvas de BRAND.md §8.
 $wt-ease-out: cubic-bezier(0.23, 1, 0.32, 1);

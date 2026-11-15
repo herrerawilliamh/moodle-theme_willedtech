@@ -60,4 +60,54 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function favicon(): \moodle_url {
         return $this->image_url('campus-favicon', 'theme');
     }
+
+    /**
+     * Encabezado de página. En el Área personal antepone el encabezado académico de Campus con datos reales
+     * (nombre, cursos matriculados mediante la API de Moodle y accesos según permisos). No toca ningún bloque.
+     *
+     * @return string
+     */
+    public function full_header() {
+        $html = parent::full_header();
+        if ($this->page->pagelayout !== 'mydashboard' || !isloggedin() || isguestuser()) {
+            return $html;
+        }
+        global $USER, $CFG;
+        require_once($CFG->libdir . '/enrollib.php');
+
+        $courses = enrol_get_my_courses('id');
+        $count = count($courses);
+        // Docente de curso: puede editar al menos uno de sus cursos (etiqueta de rol sin exigir permisos globales).
+        $teachesany = false;
+        foreach ($courses as $course) {
+            if (has_capability('moodle/course:update', \context_course::instance($course->id))) {
+                $teachesany = true;
+                break;
+            }
+        }
+        $canmanage = \core_course_category::has_manage_capability_on_any();
+        $cancreate = \core_course_category::has_capability_on_any('moodle/course:create');
+        // Categoría destino: la primera donde el usuario puede realmente crear cursos (el núcleo lo valida en edit.php).
+        $createurl = null;
+        if ($cancreate) {
+            $cats = \core_course_category::make_categories_list('moodle/course:create');
+            if ($cats) {
+                $createurl = (new \moodle_url('/course/edit.php', ['category' => array_key_first($cats)]))->out(false);
+            }
+        }
+        $cancreate = $createurl !== null;
+        $data = [
+            'firstname' => s($USER->firstname),
+            'hascourses' => $count > 0,
+            'coursecount' => $count,
+            'catalogurl' => (new \moodle_url('/course/index.php'))->out(false),
+            'calendarurl' => (new \moodle_url('/calendar/view.php', ['view' => 'upcoming']))->out(false),
+            'isteacher' => $canmanage || $cancreate || $teachesany,
+            'createurl' => $createurl,
+            'cancreate' => $cancreate,
+            'manageurl' => (new \moodle_url('/course/management.php'))->out(false),
+            'canmanage' => $canmanage,
+        ];
+        return $this->render_from_template('theme_willedtech/dashboard_hero', $data) . $html;
+    }
 }

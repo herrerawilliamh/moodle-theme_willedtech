@@ -1,0 +1,52 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_willedtech/dashboard_hero
+
+    Encabezado académico del Área personal. Solo muestra datos reales del usuario y enlaces según sus permisos.
+
+    Example context (json):
+    {
+        "firstname": "Ana",
+        "hascourses": true,
+        "coursecount": 3,
+        "catalogurl": "https://moodlesite/course/index.php",
+        "calendarurl": "https://moodlesite/calendar/view.php?view=upcoming",
+        "isteacher": true,
+        "cancreate": true,
+        "createurl": "https://moodlesite/course/edit.php?category=1",
+        "canmanage": true,
+        "manageurl": "https://moodlesite/course/management.php"
+    }
+}}
+<section class="wt-hero" aria-labelledby="wt-hero-title">
+    <div class="wt-hero-text">
+        <p class="wt-hero-eyebrow">{{#isteacher}}{{#str}} heroteacher, theme_willedtech {{/str}}{{/isteacher}}{{^isteacher}}{{#str}} herostudent, theme_willedtech {{/str}}{{/isteacher}}</p>
+        <h2 id="wt-hero-title" class="wt-hero-title">{{#str}} herowelcome, theme_willedtech, {{firstname}} {{/str}}</h2>
+        <p class="wt-hero-lead">
+            {{#hascourses}}{{#str}} herocourses, theme_willedtech, {{coursecount}} {{/str}}{{/hascourses}}
+            {{^hascourses}}{{#str}} heronocourses, theme_willedtech {{/str}}{{/hascourses}}
+        </p>
+    </div>
+    <nav class="wt-hero-actions" aria-label="{{#str}} heroactions, theme_willedtech {{/str}}">
+        {{#hascourses}}<a class="btn btn-primary" href="#region-main">{{#str}} herogocourses, theme_willedtech {{/str}}</a>{{/hascourses}}
+        <a class="btn {{#hascourses}}btn-outline-secondary{{/hascourses}}{{^hascourses}}btn-primary{{/hascourses}}" href="{{catalogurl}}">{{#str}} herocatalog, theme_willedtech {{/str}}</a>
+        <a class="btn btn-outline-secondary" href="{{calendarurl}}">{{#str}} heroagenda, theme_willedtech {{/str}}</a>
+        {{#cancreate}}<a class="btn btn-outline-secondary wt-hero-create" href="{{createurl}}">{{#str}} herocreate, theme_willedtech {{/str}}</a>{{/cancreate}}
+        {{#canmanage}}<a class="btn btn-outline-secondary wt-hero-manage" href="{{manageurl}}">{{#str}} heromanage, theme_willedtech {{/str}}</a>{{/canmanage}}
+    </nav>
+</section>

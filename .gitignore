@@ -1,0 +1,6 @@
+.agent_context/
+graphify-out/
+node_modules/
+*.log
+*.bak
+*.tmp

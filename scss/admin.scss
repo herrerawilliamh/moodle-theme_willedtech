@@ -1,0 +1,338 @@
+// WillEdTech Campus · panel de Administración del sitio (templates/admin_panel.mustache).
+// Mismo lenguaje que el resto de Campus: tarjetas blancas con radio 1:3, una sola tarjeta con foco (la del estado
+// cuando algo falla) y el estado siempre escrito, no solo en color.
+$wt-ap-ring: 0 0 0 1px wt-c(shadow, 0.07), 0 1px 2px -1px wt-c(shadow, 0.06), 0 4px 12px wt-c(shadow, 0.04);
+
+.wt-adminpanel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 0.5rem 0 1rem;
+    padding: 0 15px;
+
+    .wt-ap-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        align-items: stretch;
+    }
+
+    .wt-ap-card {
+        background: wt-c(surface);
+        border-radius: 0.5rem 1.5rem 0.5rem 1.5rem;
+        box-shadow: $wt-ap-ring;
+        padding: 1.5rem 1.75rem;
+        min-width: 0;
+    }
+
+    .wt-ap-health,
+    .wt-ap-tasks {
+        flex: 999 1 34rem;
+        min-width: 0;
+    }
+
+    .wt-ap-usage,
+    .wt-ap-recent {
+        flex: 1 1 20rem;
+    }
+
+    .wt-ap-health.is-alert {
+        box-shadow: 0 0 0 2px wt-c(ink), 0 0.75rem 2rem wt-c(shadow, 0.08);
+    }
+
+    .wt-ap-head {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 0.75rem;
+    }
+
+    .wt-ap-headtext {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .wt-ap-title {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+    }
+
+    .wt-ap-sub {
+        margin: 0;
+        color: wt-c(ink-soft);
+    }
+
+    .wt-ap-more {
+        font-weight: 700;
+        font-size: $font-size-sm;
+    }
+
+    .wt-ap-badge {
+        flex: none;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 0.375rem 1rem 0.375rem 1rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    // Tonos de estado: fondo claro y texto oscuro del mismo matiz (contraste AA).
+    .wt-ap-tone-ok {
+        background: wt-c(success-soft);
+        color: wt-c(success-ink);
+    }
+
+    .wt-ap-tone-warning {
+        background: wt-c(warning-soft);
+        color: wt-c(warning-ink);
+    }
+
+    .wt-ap-tone-error {
+        background: wt-c(error-soft);
+        color: wt-c(error-ink);
+    }
+
+    .wt-ap-checks {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .wt-ap-check {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem 0.875rem;
+        padding: 0.75rem 0;
+        border-top: 1px solid wt-c(surface-sunken);
+    }
+
+    .wt-ap-dot {
+        flex: none;
+        width: 1.75rem;
+        height: 1.75rem;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .wt-ap-checktext {
+        // 12rem: en un móvil el punto de estado y el texto siguen en la misma línea.
+        flex: 1 1 12rem;
+        min-width: 0;
+    }
+
+    .wt-ap-checkname {
+        display: block;
+        font-weight: 700;
+    }
+
+    .wt-ap-checksummary {
+        display: block;
+        color: wt-c(ink-soft);
+        font-size: $font-size-sm;
+    }
+
+    .wt-ap-chip {
+        display: inline-flex;
+        align-items: center;
+        height: 1.5rem;
+        padding: 0 0.625rem;
+        border-radius: 0.25rem 0.625rem 0.25rem 0.625rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .wt-ap-action {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2.75rem;
+        font-weight: 700;
+        font-size: $font-size-sm;
+    }
+
+    .wt-ap-okdetails {
+        margin-top: 0.25rem;
+
+        > summary {
+            display: inline-flex;
+            align-items: center;
+            min-height: 2.75rem;
+            cursor: pointer;
+            font-weight: 700;
+            color: wt-c(primary-ink);
+        }
+    }
+
+    .wt-ap-hero {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 0.75rem 0 0.625rem;
+        color: wt-c(ink-soft);
+    }
+
+    .wt-ap-bignum {
+        font-family: $headings-font-family;
+        font-weight: 800;
+        font-size: 2.75rem;
+        line-height: 1;
+        color: wt-c(ink);
+        font-variant-numeric: tabular-nums;
+    }
+
+    .wt-ap-progress {
+        height: 0.625rem;
+        border-radius: 0.1875rem 0.375rem 0.1875rem 0.375rem;
+        background: wt-c(line);
+
+        .progress-bar {
+            background: $wt-product-campus;
+        }
+    }
+
+    .wt-ap-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin: 1.25rem 0 0;
+
+        dt {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: wt-c(ink-soft);
+        }
+
+        dd {
+            margin: 0;
+            font-family: $headings-font-family;
+            font-weight: 800;
+            font-size: 1.375rem;
+            font-variant-numeric: tabular-nums;
+        }
+    }
+
+    .wt-ap-taskgrid {
+        list-style: none;
+        margin: 0.875rem 0 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+        gap: 0.75rem;
+    }
+
+    .wt-ap-task {
+        display: flex;
+        align-items: center;
+        gap: 0.875rem;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 1rem;
+        border-radius: 0.375rem 1.125rem 0.375rem 1.125rem;
+        background: wt-c(surface);
+        box-shadow: 0 0 0 1px wt-c(shadow, 0.08);
+        color: wt-c(ink);
+        text-decoration: none;
+        transition: background-color 140ms $wt-ease-out, box-shadow 140ms $wt-ease-out;
+
+        &:hover {
+            background: wt-c(primary-soft);
+            box-shadow: 0 0 0 1px wt-c(primary-line);
+            color: wt-c(ink);
+        }
+
+        &:focus-visible {
+            outline: 2px solid wt-c(focus);
+            outline-offset: 2px;
+        }
+
+        // Kopere Dashboard: el acceso más usado, en el tono oscuro de marca.
+        &.is-featured {
+            background: $wt-violet-950;
+            box-shadow: none;
+            color: #fff;
+
+            .wt-ap-taskicon {
+                background: $wt-yellow;
+                color: $wt-violet-950;
+            }
+
+            .wt-ap-taskhint {
+                color: #e6ebfa;
+            }
+
+            &:hover {
+                background: #363b93;
+                color: #fff;
+            }
+        }
+    }
+
+    .wt-ap-taskicon {
+        flex: none;
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 0.375rem 0.875rem 0.375rem 0.875rem;
+        background: wt-c(primary-soft);
+        color: wt-c(primary-ink);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .wt-ap-tasktext {
+        min-width: 0;
+    }
+
+    .wt-ap-taskname {
+        display: block;
+        font-weight: 700;
+    }
+
+    .wt-ap-taskhint {
+        display: block;
+        color: wt-c(ink-soft);
+        font-size: $font-size-sm;
+    }
+
+    .wt-ap-log {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            padding: 0.625rem 0;
+            border-top: 1px solid wt-c(surface-sunken);
+        }
+    }
+
+    .wt-ap-logname {
+        display: block;
+        font-weight: 700;
+        overflow-wrap: anywhere;
+    }
+
+    .wt-ap-logmeta {
+        display: block;
+        color: wt-c(ink-soft);
+        font-size: $font-size-sm;
+    }
+
+    .wt-ap-settingstitle {
+        font-size: 1.375rem;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wt-adminpanel .wt-ap-task {
+        transition: none;
+    }
+}

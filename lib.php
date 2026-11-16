@@ -55,5 +55,29 @@ function theme_willedtech_get_pre_scss($theme) {
  */
 function theme_willedtech_get_extra_scss($theme) {
     return file_get_contents(__DIR__ . '/scss/fonts.scss') . "\n"
-        . file_get_contents(__DIR__ . '/scss/post.scss');
+        . theme_willedtech_brand_dark_bridge() . "\n"
+        . file_get_contents(__DIR__ . '/scss/tokens.scss') . "\n"
+        . file_get_contents(__DIR__ . '/scss/post.scss') . "\n"
+        . file_get_contents(__DIR__ . '/scss/admin.scss') . "\n"
+        . file_get_contents(__DIR__ . '/scss/teacher.scss') . "\n"
+        . file_get_contents(__DIR__ . '/scss/student.scss') . "\n"
+        . file_get_contents(__DIR__ . '/scss/course.scss') . "\n"
+        // Banners de sección (Brand §11): muestra solo el del modo activo, claro u oscuro.
+        . file_get_contents(__DIR__ . '/style/banners.css');
+}
+
+/**
+ * Puente del modo oscuro: Brand activa sus colores oscuros con [data-theme="dark"] y Moodle (Boost) marca el modo
+ * con [data-bs-theme="dark"] en <html>. Se toma el bloque oscuro tal cual de style/willedtech.css (copia sincronizada
+ * de Brand) y se reemite con el selector de Moodle, así los valores no se copian a mano ni se desincronizan.
+ * html[...] gana a :root, donde Brand declara los valores claros.
+ *
+ * @return string CSS, o cadena vacía si el bloque de Brand no aparece (el tema se queda en claro, no se rompe).
+ */
+function theme_willedtech_brand_dark_bridge(): string {
+    $css = file_get_contents(__DIR__ . '/style/willedtech.css');
+    if ($css === false || !preg_match('/\[data-theme="dark"\][^{]*\{([^}]*)\}/', $css, $matches)) {
+        return '';
+    }
+    return 'html[data-bs-theme="dark"] {' . $matches[1] . "}\n";
 }

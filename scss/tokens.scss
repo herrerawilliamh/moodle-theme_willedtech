@@ -1,0 +1,17 @@
+// WillEdTech Campus · colores que siguen el modo claro u oscuro.
+//
+// Los $wt-* de willedtech-bootstrap.scss son hex fijos: sirven para Bootstrap, que deriva su modo oscuro de sus
+// propias variables, pero no para el CSS propio del tema. Aquí cada color apunta a la variable semántica de Brand
+// (style/willedtech.css: --wt-surface, --wt-ink, --wt-line…), que vale distinto en claro y en oscuro.
+//
+//     background: wt-c(surface);          // rgb(var(--wt-surface))
+//     box-shadow: 0 1px 2px wt-c(shadow, 0.08);
+//
+// Regla: en el CSS propio del tema no se escriben hex ni $wt-* de color salvo en piezas que son oscuras en los dos
+// modos (encabezado docente, acceso destacado), donde el color fijo es intencional.
+@function wt-c($token, $alpha: null) {
+    @if $alpha == null {
+        @return unquote("rgb(var(--wt-#{$token}))");
+    }
+    @return unquote("rgb(var(--wt-#{$token}) / #{$alpha})");
+}

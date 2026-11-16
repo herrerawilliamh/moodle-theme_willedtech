@@ -1,0 +1,89 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_willedtech/core_course/coursecard
+
+    Tarjeta de curso de Campus (Área personal). Conserva el contrato de core_course/coursecard:
+    mismas variables y mismos huecos ($coursename, $coursecategory, $progress, $menu) que rellena block_myoverview.
+    Pie compacto: botón de entrada, hueco de gestión rápida y menú en una sola fila. El sello «Oculto» se pinta
+    siempre y el CSS lo muestra solo con .wt-coursecard--hidden, así quickmanage puede alternarlo sin re-renderizar.
+
+    Example context (json):
+    {
+        "id": 2,
+        "uniqid": "abc",
+        "viewurl": "https://moodlesite/course/view.php?id=2",
+        "courseimage": "https://moodlesite/pluginfile/123/course/overviewfiles/123.jpg",
+        "fullname": "Curso de ejemplo",
+        "shortname": "EJ-1",
+        "showshortname": true,
+        "hasprogress": true,
+        "progress": 10,
+        "visible": true,
+        "isfavourite": false
+    }
+}}
+<div class="card course-card wt-coursecard{{^visible}} wt-coursecard--hidden{{/visible}}" role="listitem"
+    data-region="course-content"
+    data-course-id="{{{id}}}"
+    data-wt-visible="{{#visible}}1{{/visible}}{{^visible}}0{{/visible}}"
+    data-wt-favourite="{{#isfavourite}}1{{/isfavourite}}{{^isfavourite}}0{{/isfavourite}}">
+    <a href="{{viewurl}}" tabindex="-1" class="wt-coursecard-cover-link">
+        <div class="card-img-top wt-coursecard-cover" style='background-image: url("{{courseimage}}");'>
+            <span class="visually-hidden">{{fullname}}</span>
+            {{! Portada tipográfica: CSS la muestra solo si Moodle puso su patrón genérico (data:image/svg). }}
+            <span class="wt-coursecard-cover-title" aria-hidden="true">{{#shortentext}}40, {{{fullname}}} {{/shortentext}}</span>
+        </div>
+        <span class="wt-coursecard-hiddenseal" data-region="wt-hiddenseal">
+            <i class="icon fa fa-eye-slash fa-fw m-0" aria-hidden="true"></i>{{#str}} hiddenfromstudents {{/str}}
+        </span>
+    </a>
+    <div class="card-body course-info-container" id="course-info-container-{{id}}-{{uniqid}}">
+        <div class="w-100">
+            {{#showshortname}}
+                <div class="text-muted muted d-flex mb-1 flex-wrap wt-coursecard-code">
+                    <span class="visually-hidden">
+                        {{#str}}aria:courseshortname, core_course{{/str}}
+                    </span>
+                    <div>
+                        {{{shortname}}}
+                    </div>
+                </div>
+            {{/showshortname}}
+            <a href="{{viewurl}}" class="aalink coursename mb-1">
+                {{> core_course/favouriteicon }}
+                <span class="visually-hidden">
+                    {{#str}}aria:coursename, core_course{{/str}}
+                </span>
+                {{$coursename}}{{/coursename}}
+            </a>
+            <div class="text-muted muted d-flex flex-wrap wt-coursecard-category">
+                {{$coursecategory}}{{/coursecategory}}
+            </div>
+        </div>
+        {{$progress}}{{/progress}}
+    </div>
+    <div class="wt-coursecard-actions">
+        <a href="{{viewurl}}" class="btn btn-sm btn-primary wt-coursecard-enter">
+            {{#hasprogress}}{{#str}} continuelearning, theme_willedtech {{/str}}{{/hasprogress}}{{^hasprogress}}{{#str}} entercourse, theme_willedtech {{/str}}{{/hasprogress}}
+            <span class="visually-hidden">: {{fullname}}</span>
+        </a>
+        {{! Hueco de la gestión rápida: theme_willedtech/quickmanage pone aquí el interruptor si el usuario puede. }}
+        <div class="wt-coursecard-quick" data-region="wt-quick"></div>
+        {{$menu}}{{/menu}}
+    </div>
+</div>

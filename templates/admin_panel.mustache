@@ -1,0 +1,130 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_willedtech/admin_panel
+
+    Portada de Administración del sitio: estado del Campus, uso, tareas frecuentes y últimos ajustes cambiados.
+    Va entre el encabezado (título y buscador de ajustes) y las pestañas nativas con todos los ajustes.
+
+    Example context (json):
+    {
+        "problemchecks": [{"tone": "warning", "name": "Correo saliente", "summary": "Sin servidor SMTP.", "state": "Revisar", "hasaction": true, "actionurl": "#", "actiontext": "Configurar"}],
+        "okchecks": [{"tone": "ok", "name": "Cron", "summary": "Se ejecutó hace 1 minuto.", "state": "En orden"}],
+        "hasproblems": true, "problems": 1, "okcount": 1, "checkcount": 2, "statusurl": "#",
+        "usage": {"active": 12, "total": 15, "percent": 80, "online": 2, "courses": 3, "enrolments": 9},
+        "tasks": [{"title": "Crear usuario", "hint": "Una cuenta nueva", "url": "#", "icon_userplus": true}],
+        "recent": [{"setting": "theme", "meta": "Admin · 15/11/26, 10:00"}], "hasrecent": true, "configlogurl": "#"
+    }
+}}
+<div class="wt-adminpanel">
+    <div class="wt-ap-row">
+        <section class="wt-ap-card wt-ap-health{{#hasproblems}} is-alert{{/hasproblems}}" aria-labelledby="wt-ap-health-title">
+            <div class="wt-ap-head">
+                <span class="wt-ap-badge wt-ap-tone-{{#hasproblems}}warning{{/hasproblems}}{{^hasproblems}}ok{{/hasproblems}}" aria-hidden="true">
+                    {{#hasproblems}}<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20zM12 10v4M12 17h.01"/></svg>{{/hasproblems}}
+                    {{^hasproblems}}<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>{{/hasproblems}}
+                </span>
+                <div class="wt-ap-headtext">
+                    <h2 id="wt-ap-health-title" class="wt-ap-title">
+                        {{#hasproblems}}{{#str}} adminpanel_attention, theme_willedtech, {{problems}} {{/str}}{{/hasproblems}}
+                        {{^hasproblems}}{{#str}} adminpanel_allgood, theme_willedtech {{/str}}{{/hasproblems}}
+                    </h2>
+                    <p class="wt-ap-sub">{{#str}} adminpanel_checksok, theme_willedtech, { "ok": {{okcount}}, "total": {{checkcount}} } {{/str}}</p>
+                </div>
+                <a class="wt-ap-more" href="{{statusurl}}">{{#str}} adminpanel_allchecks, theme_willedtech {{/str}}</a>
+            </div>
+
+            {{#hasproblems}}
+            <ul class="wt-ap-checks">
+                {{#problemchecks}}{{> theme_willedtech/admin_panel_check }}{{/problemchecks}}
+            </ul>
+            {{/hasproblems}}
+
+            {{#okcount}}
+            <details class="wt-ap-okdetails"{{^hasproblems}} open{{/hasproblems}}>
+                <summary>{{#str}} adminpanel_okfold, theme_willedtech, {{okcount}} {{/str}}</summary>
+                <ul class="wt-ap-checks">
+                    {{#okchecks}}{{> theme_willedtech/admin_panel_check }}{{/okchecks}}
+                </ul>
+            </details>
+            {{/okcount}}
+        </section>
+
+        <section class="wt-ap-card wt-ap-usage" aria-labelledby="wt-ap-usage-title">
+            <h2 id="wt-ap-usage-title" class="wt-ap-title">{{#str}} adminpanel_usage, theme_willedtech {{/str}}</h2>
+            {{#usage}}
+            <p class="wt-ap-hero">
+                <span class="wt-ap-bignum">{{active}}</span>
+                <span>{{#str}} adminpanel_activeof, theme_willedtech, {{total}} {{/str}}</span>
+            </p>
+            <div class="progress wt-ap-progress" role="progressbar" aria-valuenow="{{percent}}" aria-valuemin="0" aria-valuemax="100" aria-label="{{#str}} adminpanel_activeusers, theme_willedtech {{/str}}">
+                <div class="progress-bar" style="width: {{percent}}%"></div>
+            </div>
+            <dl class="wt-ap-stats">
+                <div><dt>{{#str}} adminpanel_courses, theme_willedtech {{/str}}</dt><dd>{{courses}}</dd></div>
+                <div><dt>{{#str}} adminpanel_enrolments, theme_willedtech {{/str}}</dt><dd>{{enrolments}}</dd></div>
+                <div><dt>{{#str}} adminpanel_online, theme_willedtech {{/str}}</dt><dd>{{online}}</dd></div>
+            </dl>
+            {{/usage}}
+        </section>
+    </div>
+
+    <div class="wt-ap-row">
+        <section class="wt-ap-tasks" aria-labelledby="wt-ap-tasks-title">
+            <h2 id="wt-ap-tasks-title" class="wt-ap-title">{{#str}} adminpanel_tasks, theme_willedtech {{/str}}</h2>
+            <ul class="wt-ap-taskgrid">
+                {{#tasks}}
+                <li>
+                    <a class="wt-ap-task{{#featured}} is-featured{{/featured}}" href="{{url}}">
+                        <span class="wt-ap-taskicon" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                {{#icon_chart}}<path d="M3 3v18h18M8 17v-5M13 17V8M18 17v-9"/>{{/icon_chart}}
+                                {{#icon_userplus}}<path d="M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M19 8v6M22 11h-6"/>{{/icon_userplus}}
+                                {{#icon_upload}}<path d="M12 15V3M7 8l5-5 5 5M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/>{{/icon_upload}}
+                                {{#icon_plus}}<path d="M12 5v14M5 12h14"/>{{/icon_plus}}
+                                {{#icon_folder}}<path d="M3 7h7l2 2h9v10H3z"/>{{/icon_folder}}
+                                {{#icon_users}}<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>{{/icon_users}}
+                                {{#icon_palette}}<path d="M12 21a9 9 0 1 1 9-9c0 2-2 3-4 3h-2a2 2 0 0 0-1 3.7A1.5 1.5 0 0 1 12 21zM7.5 10.5h.01M12 7.5h.01M16.5 10.5h.01"/>{{/icon_palette}}
+                            </svg>
+                        </span>
+                        <span class="wt-ap-tasktext">
+                            <span class="wt-ap-taskname">{{title}}</span>
+                            <span class="wt-ap-taskhint">{{hint}}</span>
+                        </span>
+                    </a>
+                </li>
+                {{/tasks}}
+            </ul>
+        </section>
+
+        {{#hasrecent}}
+        <section class="wt-ap-card wt-ap-recent" aria-labelledby="wt-ap-recent-title">
+            <div class="wt-ap-head">
+                <h2 id="wt-ap-recent-title" class="wt-ap-title">{{#str}} adminpanel_recent, theme_willedtech {{/str}}</h2>
+                <a class="wt-ap-more" href="{{configlogurl}}">{{#str}} adminpanel_recentall, theme_willedtech {{/str}}</a>
+            </div>
+            <ul class="wt-ap-log">
+                {{#recent}}
+                <li><span class="wt-ap-logname">{{setting}}</span><span class="wt-ap-logmeta">{{meta}}</span></li>
+                {{/recent}}
+            </ul>
+        </section>
+        {{/hasrecent}}
+    </div>
+
+    <h2 class="wt-ap-title wt-ap-settingstitle">{{#str}} adminpanel_allsettings, theme_willedtech {{/str}}</h2>
+</div>

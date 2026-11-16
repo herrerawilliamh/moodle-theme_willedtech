@@ -2,9 +2,9 @@
   "app": "campus",
   "brand": {
     "repo": "willedtech/brand",
-    "version": "3.2.0",
-    "commit": "97ab752b7480a03948997ab66d48592ec5eb6c32",
-    "manifestSha256": "1a13d517850edc57f98510a5312d65d60e33e529ddc16b670c67d16487cdd425"
+    "version": "3.4.0",
+    "commit": "af635bcb242e87186a4175e79d726f0a56a20911",
+    "manifestSha256": "01ac2bd44df76eb31516e85d3a7fd2d272af39d6387325cee5b384ce320e3c7d"
   },
   "verifier": "tools/brand-verify.mjs",
   "files": [
@@ -47,6 +47,261 @@
       "from": "tools/brand-verify.mjs",
       "to": "tools/brand-verify.mjs",
       "sha256": "08dfda00d5dc12c10893dc47a0fe89056b74fc126bdfa83d570760d1c174e1f1"
+    },
+    {
+      "from": "products/campus/banners/banners.css",
+      "to": "style/banners.css",
+      "sha256": "ee59f09d6a049031fa77776f2cd76cd3e841082b2ec00a7ad2d4983aa7035649"
+    },
+    {
+      "from": "products/campus/banners/png/actividades-claro.png",
+      "to": "pix/banners/actividades-claro.png",
+      "sha256": "6e1cfdd89b2fa5282d3f8eb4e9b1794c106f892655da1f9e4f12ac60c96beeb1"
+    },
+    {
+      "from": "products/campus/banners/png/actividades-oscuro.png",
+      "to": "pix/banners/actividades-oscuro.png",
+      "sha256": "f25073b056277a473a04cfaa344238fa49f60bfae7a4e7b2d096fc4a205b3c72"
+    },
+    {
+      "from": "products/campus/banners/png/avisos-claro.png",
+      "to": "pix/banners/avisos-claro.png",
+      "sha256": "1eefef9543688179c77c84437acfaac2fa8782be98caf7176aba604de07914e2"
+    },
+    {
+      "from": "products/campus/banners/png/avisos-oscuro.png",
+      "to": "pix/banners/avisos-oscuro.png",
+      "sha256": "ce07a6674b21ae315566ea7bd21c08ff7bb09940508962e211f9d061ea276cb1"
+    },
+    {
+      "from": "products/campus/banners/png/bienvenida-claro.png",
+      "to": "pix/banners/bienvenida-claro.png",
+      "sha256": "96f207516eb9b802af0b20747e8c62830163858a2160f6d52122a45214cac00b"
+    },
+    {
+      "from": "products/campus/banners/png/bienvenida-oscuro.png",
+      "to": "pix/banners/bienvenida-oscuro.png",
+      "sha256": "1317f3d86c0b3587537fb514563418b4d8d9da13fb0bf80474ce9d5f0ffbd42e"
+    },
+    {
+      "from": "products/campus/banners/png/cierre-claro.png",
+      "to": "pix/banners/cierre-claro.png",
+      "sha256": "5f971b20d9a313ee5b885d2af35545aa3a50a5ce19fa154e2c65f92ec1a727b4"
+    },
+    {
+      "from": "products/campus/banners/png/cierre-oscuro.png",
+      "to": "pix/banners/cierre-oscuro.png",
+      "sha256": "1d88a0ae0030f0267336915f672f67e948e66a0c2a1a0e221e618acab4af824d"
+    },
+    {
+      "from": "products/campus/banners/png/competencias-claro.png",
+      "to": "pix/banners/competencias-claro.png",
+      "sha256": "d19847737bb57772bcd7368015571e03731e6f4a286cf6a6277701208135cb1a"
+    },
+    {
+      "from": "products/campus/banners/png/competencias-oscuro.png",
+      "to": "pix/banners/competencias-oscuro.png",
+      "sha256": "c3aa0684b19980b576f727360d487efdbc12887bbf18b361cd976b1087a894d0"
+    },
+    {
+      "from": "products/campus/banners/png/cronograma-claro.png",
+      "to": "pix/banners/cronograma-claro.png",
+      "sha256": "f48e9da71ed380e25943e030bcc726f5c75347d57a2fbd36665cfaa5ed9881dc"
+    },
+    {
+      "from": "products/campus/banners/png/cronograma-oscuro.png",
+      "to": "pix/banners/cronograma-oscuro.png",
+      "sha256": "886bae1d3ef6902b32419ad23ed982947cb9a8bb6d5e1475ce8d467bedcb2e69"
+    },
+    {
+      "from": "products/campus/banners/png/evaluacion-claro.png",
+      "to": "pix/banners/evaluacion-claro.png",
+      "sha256": "2ee20ee4149dfdc7782823e50f5d78bec427dab511ff9d588f12065987fb4c59"
+    },
+    {
+      "from": "products/campus/banners/png/evaluacion-oscuro.png",
+      "to": "pix/banners/evaluacion-oscuro.png",
+      "sha256": "45451a2d72f583a7822f46e0da288fda1e420f050fd372b36527194f9e1ac855"
+    },
+    {
+      "from": "products/campus/banners/png/glosario-claro.png",
+      "to": "pix/banners/glosario-claro.png",
+      "sha256": "20c899276ca7e4b20889b6c656b6f94e28c3a8aae6521541897d83bbf19bccd6"
+    },
+    {
+      "from": "products/campus/banners/png/glosario-oscuro.png",
+      "to": "pix/banners/glosario-oscuro.png",
+      "sha256": "99fee83a639b279efbf2d55e4fc085ce2376d6871c7a1aed76ce245ccf575a2f"
+    },
+    {
+      "from": "products/campus/banners/png/invitado-especial-claro.png",
+      "to": "pix/banners/invitado-especial-claro.png",
+      "sha256": "3b977112db1d18bc5ea72f4daa5df54b3125c5e5532377c9927582dc4a63a4c7"
+    },
+    {
+      "from": "products/campus/banners/png/invitado-especial-oscuro.png",
+      "to": "pix/banners/invitado-especial-oscuro.png",
+      "sha256": "de8cfc3cb5548baeba4093525645f7744893de5d96e9e80dd08716d09dbc348d"
+    },
+    {
+      "from": "products/campus/banners/png/material-de-apoyo-claro.png",
+      "to": "pix/banners/material-de-apoyo-claro.png",
+      "sha256": "447989ad7b2df90456ab1a1b0903557efeacef8a77837601b80b64c5fcc77835"
+    },
+    {
+      "from": "products/campus/banners/png/material-de-apoyo-oscuro.png",
+      "to": "pix/banners/material-de-apoyo-oscuro.png",
+      "sha256": "6de1cf06275101e88a21b20b2d97de740c870a7d97f5c5098db36f040b47ec6c"
+    },
+    {
+      "from": "products/campus/banners/png/presentacion-claro.png",
+      "to": "pix/banners/presentacion-claro.png",
+      "sha256": "026f69e21924a71399739c16a178682d5d36d80abdc3ff2502497c40bedbaa5e"
+    },
+    {
+      "from": "products/campus/banners/png/presentacion-oscuro.png",
+      "to": "pix/banners/presentacion-oscuro.png",
+      "sha256": "4daf4e70915b4c949c630d05068a9d97825ec2fb052386ba9232f393491b7c9f"
+    },
+    {
+      "from": "products/campus/banners/png/recursos-claro.png",
+      "to": "pix/banners/recursos-claro.png",
+      "sha256": "7918089bc765265e80208a848ae312b666dcc4a6b5425e71711e56ee0b8e9fa7"
+    },
+    {
+      "from": "products/campus/banners/png/recursos-oscuro.png",
+      "to": "pix/banners/recursos-oscuro.png",
+      "sha256": "2c75b6433efaaf649c796a402f2e968f2ea3ce880bb1e007477b6354217e4e64"
+    },
+    {
+      "from": "products/campus/banners/png/requisitos-tecnicos-claro.png",
+      "to": "pix/banners/requisitos-tecnicos-claro.png",
+      "sha256": "a3fe4c06abc086efabb588da8003a11eb0cdf8c44cb1ca7ce8807aa48487f880"
+    },
+    {
+      "from": "products/campus/banners/png/requisitos-tecnicos-oscuro.png",
+      "to": "pix/banners/requisitos-tecnicos-oscuro.png",
+      "sha256": "628241ecaa06498afc6439c59e55af61c4d95615d02b4d579d4b14b433a4b59e"
+    },
+    {
+      "from": "products/campus/banners/png/resultados-de-aprendizaje-claro.png",
+      "to": "pix/banners/resultados-de-aprendizaje-claro.png",
+      "sha256": "5179820fc8ac4a1d66006c5c1fd00c32d82cad72788fbad275ee61073e224e33"
+    },
+    {
+      "from": "products/campus/banners/png/resultados-de-aprendizaje-oscuro.png",
+      "to": "pix/banners/resultados-de-aprendizaje-oscuro.png",
+      "sha256": "a8d0874c750c500d40b718e84561fb64141e710b8139af1abf50665a1d5ba43e"
+    },
+    {
+      "from": "products/campus/banners/png/sesion-sincronica-claro.png",
+      "to": "pix/banners/sesion-sincronica-claro.png",
+      "sha256": "ebef6b24f45bcf4e2a756aa7dea3065039a69f1983d7f282ae74ca91cccce732"
+    },
+    {
+      "from": "products/campus/banners/png/sesion-sincronica-oscuro.png",
+      "to": "pix/banners/sesion-sincronica-oscuro.png",
+      "sha256": "fe7b0765542b9a33f69f773f5d52b775fb0b0445715fe68950c1673ab15d3e7d"
+    },
+    {
+      "from": "products/campus/banners/png/tutorias-claro.png",
+      "to": "pix/banners/tutorias-claro.png",
+      "sha256": "6711b10886971bb448023eb94d7fdca1d685219acfa9d26a53a06bc99578b933"
+    },
+    {
+      "from": "products/campus/banners/png/tutorias-oscuro.png",
+      "to": "pix/banners/tutorias-oscuro.png",
+      "sha256": "1772a0a51f8d58661abcd6c03ac8792304f5b7d3e8539849ef00ede152c3d7b9"
+    },
+    {
+      "from": "products/campus/banners/png/unidad-1-claro.png",
+      "to": "pix/banners/unidad-1-claro.png",
+      "sha256": "3bd0b10cf115ad2393f90566b4c141ebe80a4e08b7888ed587a54d32f6a4e1bb"
+    },
+    {
+      "from": "products/campus/banners/png/unidad-1-oscuro.png",
+      "to": "pix/banners/unidad-1-oscuro.png",
+      "sha256": "a8e46271bebdb1d499c5cdb8a7f6852be606a54760bc4a740132187f2b94486e"
+    },
+    {
+      "from": "products/campus/banners/png/unidad-2-claro.png",
+      "to": "pix/banners/unidad-2-claro.png",
+      "sha256": "6f058a6ed313523c15e4b5a54828b9656e5bf4e662b25fef5f7ba69ec0c21b0f"
+    },
+    {
+      "from": "products/campus/banners/png/unidad-2-oscuro.png",
+      "to": "pix/banners/unidad-2-oscuro.png",
+      "sha256": "e1c5b24d855af6da263734f61124b72436e27347ac97847aa7fba22f352c7fa1"
+    },
+    {
+      "from": "products/campus/banners/png/unidad-3-claro.png",
+      "to": "pix/banners/unidad-3-claro.png",
+      "sha256": "75d4bcfbbe61c2f5efe830387e4cc7eb3f609d99dc3e1855751563f9c17b49e6"
+    },
+    {
+      "from": "products/campus/banners/png/unidad-3-oscuro.png",
+      "to": "pix/banners/unidad-3-oscuro.png",
+      "sha256": "3762fe607bc73b95e7f76a3e6b2835b0f375963c906efe7602afb180822d7514"
+    },
+    {
+      "from": "products/campus/banners/png/unidad-4-claro.png",
+      "to": "pix/banners/unidad-4-claro.png",
+      "sha256": "f2697505e65db49e51d0a848186b6b3263cb2816adbc57ba55897ec432288b66"
+    },
+    {
+      "from": "products/campus/banners/png/unidad-4-oscuro.png",
+      "to": "pix/banners/unidad-4-oscuro.png",
+      "sha256": "3841b78fff5490545204458bd53249ae26e9a502b8e41fd112d7327a53bcb901"
+    },
+    {
+      "from": "products/campus/banners/png/unidad-5-claro.png",
+      "to": "pix/banners/unidad-5-claro.png",
+      "sha256": "433c2792b0f2d6baa1ee9d0824506b1e806833d5151f1f94d4366a1b87327839"
+    },
+    {
+      "from": "products/campus/banners/png/unidad-5-oscuro.png",
+      "to": "pix/banners/unidad-5-oscuro.png",
+      "sha256": "a802f4da6bc53838ab75f0b0ed3b0a9ad0a9e5ceb4f57c1934add4b06dca5448"
+    },
+    {
+      "from": "products/campus/banners/png/unidad-6-claro.png",
+      "to": "pix/banners/unidad-6-claro.png",
+      "sha256": "f1b875b3101b3ff35c173883836fbd79d5837684894ea97cc721c4546ca95002"
+    },
+    {
+      "from": "products/campus/banners/png/unidad-6-oscuro.png",
+      "to": "pix/banners/unidad-6-oscuro.png",
+      "sha256": "becf9dac01218f5e78bff1df902aff6acb4e7db4f9e36479b1da614b832cf63a"
+    },
+    {
+      "from": "products/campus/banners/png/unidad-7-claro.png",
+      "to": "pix/banners/unidad-7-claro.png",
+      "sha256": "7d2bff40bc058c7395f4c3260b6429a55c53e43609f0b1e4d102c19acad4c5a3"
+    },
+    {
+      "from": "products/campus/banners/png/unidad-7-oscuro.png",
+      "to": "pix/banners/unidad-7-oscuro.png",
+      "sha256": "c2ecce474c9ccaed0c1d684e0e01928de98c141f98f8e744c259ba3c534d26c2"
+    },
+    {
+      "from": "products/campus/banners/png/unidad-8-claro.png",
+      "to": "pix/banners/unidad-8-claro.png",
+      "sha256": "4181814976456b4b073a3e288c8b530731688b7f1492bf0bb145bdf41b895f77"
+    },
+    {
+      "from": "products/campus/banners/png/unidad-8-oscuro.png",
+      "to": "pix/banners/unidad-8-oscuro.png",
+      "sha256": "93d68af22618d82c5675c39f2bd55a31e8c31a71112576e049f0509858105876"
+    },
+    {
+      "from": "products/campus/banners/png/zona-de-descarga-claro.png",
+      "to": "pix/banners/zona-de-descarga-claro.png",
+      "sha256": "19381d1b6368f99932c7b2e19795899b8ff1b3354b95e815e27b021e5045d4a5"
+    },
+    {
+      "from": "products/campus/banners/png/zona-de-descarga-oscuro.png",
+      "to": "pix/banners/zona-de-descarga-oscuro.png",
+      "sha256": "533b181b942bf04704ff3487239946ef60a716615097945be6e18c8623953e2a"
     }
   ],
   "local": [

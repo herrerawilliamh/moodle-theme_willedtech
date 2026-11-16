@@ -133,8 +133,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
-     * Cabecera del contenido del curso (debajo de las pestañas del curso). En el aula, quien estudia ve su panel:
-     * dónde sigue, cuánto lleva, qué vence y a quién escribir. Docentes y edición ven el curso como en Boost.
+     * Cabecera del contenido del curso (debajo de las pestañas del curso). En el aula, todo el que entra ve el mismo
+     * panel: dónde sigue, cuánto lleva, qué vence y a quién escribir. Solo el modo edición ve el curso como en Boost.
      *
      * @param bool $onlyifnotcalledbefore
      * @return string
@@ -151,8 +151,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 || !isloggedin() || isguestuser() || $course->id == SITEID) {
             return $html;
         }
-        $context = \context_course::instance($course->id);
-        if (has_capability('moodle/course:update', $context) || !is_enrolled($context, null, '', true)) {
+        // Todos los roles (estudiante, docente, administración) ven la misma aula; solo hace falta poder entrar al
+        // curso. Lo que no aplica a quien mira (progreso sin seguimiento, su propio contacto) se omite solo.
+        if (!can_access_course($course)) {
             return $html;
         }
         $painted = true;

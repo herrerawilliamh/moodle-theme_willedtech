@@ -17,7 +17,7 @@
 namespace theme_willedtech\output;
 
 /**
- * Panel del aula para el estudiante, encima de las secciones del curso: dónde sigue, cuánto lleva,
+ * Panel del aula (igual para estudiantes, docentes y administración), encima de las secciones del curso: dónde sigue, cuánto lleva,
  * qué vence pronto y a quién escribir. No sustituye el formato del curso: solo lo encabeza.
  *
  * Reutiliza student_panel («Lo siguiente» y eventos) para que el Área personal y el aula digan lo mismo.

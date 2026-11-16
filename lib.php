@@ -58,7 +58,8 @@ function theme_willedtech_get_extra_scss($theme) {
         . theme_willedtech_brand_dark_bridge() . "\n"
         . file_get_contents(__DIR__ . '/scss/tokens.scss') . "\n"
         . file_get_contents(__DIR__ . '/scss/post.scss') . "\n"
-        . file_get_contents(__DIR__ . '/scss/admin.scss');
+        . file_get_contents(__DIR__ . '/scss/admin.scss') . "\n"
+        . file_get_contents(__DIR__ . '/scss/teacher.scss');
 }
 
 /**

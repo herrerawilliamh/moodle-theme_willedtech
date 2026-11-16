@@ -80,16 +80,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
         global $USER, $CFG;
         require_once($CFG->libdir . '/enrollib.php');
 
-        $courses = enrol_get_my_courses('id');
+        $courses = enrol_get_my_courses('enablecompletion');
         $count = count($courses);
-        // Docente de curso: puede editar al menos uno de sus cursos (etiqueta de rol sin exigir permisos globales).
-        $teachesany = false;
-        foreach ($courses as $course) {
-            if (has_capability('moodle/course:update', \context_course::instance($course->id))) {
-                $teachesany = true;
-                break;
-            }
-        }
+        // Docente de curso: puede editar o calificar en al menos uno de sus cursos.
+        $teacher = new teacher_panel($courses);
+        $teachesany = $teacher->has_courses();
         $canmanage = \core_course_category::has_manage_capability_on_any();
         $cancreate = \core_course_category::has_capability_on_any('moodle/course:create');
         // Categoría destino: la primera donde el usuario puede realmente crear cursos (el núcleo lo valida en edit.php).
@@ -112,8 +107,18 @@ class core_renderer extends \theme_boost\output\core_renderer {
             'cancreate' => $cancreate,
             'manageurl' => (new \moodle_url('/course/management.php'))->out(false),
             'canmanage' => $canmanage,
+            'teaches' => $teachesany,
         ];
-        return $this->render_from_template('theme_willedtech/dashboard_hero', $data) . $html;
+        $panel = '';
+        if ($teachesany) {
+            // Espacio docente: «Por calificar» en el encabezado y, debajo del título, sus cursos, quién necesita
+            // atención y la semana. Los datos se calculan una vez y los comparten las dos plantillas.
+            $data['grading'] = $teacher->grading();
+            $data['teachercourses'] = $teacher->course_count();
+            $data['teacherstudents'] = $teacher->student_count();
+            $panel = $this->render_from_template('theme_willedtech/teacher_panel', $teacher->export_for_template($this));
+        }
+        return $this->render_from_template('theme_willedtech/dashboard_hero', $data) . $html . $panel;
     }
 
     /**

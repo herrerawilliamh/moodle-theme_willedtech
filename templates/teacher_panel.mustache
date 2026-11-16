@@ -1,0 +1,136 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_willedtech/teacher_panel
+
+    Espacio docente del Área personal: sus cursos (dónde va el grupo por unidad, por calificar, progreso medio e
+    inactivos), quién necesita atención y su semana. Datos de theme_willedtech\output\teacher_panel.
+
+    Example context (json):
+    {
+        "hascourses": true,
+        "courses": [{
+            "name": "Fundamentos de Programación", "shortname": "PROG-101", "url": "#", "gradesurl": "#",
+            "students": 10, "hascohort": true, "units": 4, "cohortlabel": "Unidad 1: 2 estudiantes",
+            "cohort": [{"height": 30, "state": "done"}, {"height": 56, "state": "now"}, {"height": 8, "state": "todo"}],
+            "pending": 3, "pendingalert": true, "avg": "52 %", "idle": 2, "idlealert": true
+        }],
+        "morecourses": false,
+        "hasattention": true,
+        "attention": [{"initials": "EP", "name": "Estudiante Prueba 09", "course": "Fundamentos", "reason": "12 días sin entrar",
+            "messageurl": "#", "profileurl": "#"}],
+        "idledays": 7,
+        "hasevents": true,
+        "events": [{"weekday": "jue", "day": "19", "name": "Vencimiento de Taller", "meta": "PROG-101 · 18:53"}],
+        "calendarurl": "#"
+    }
+}}
+<div class="wt-teacher">
+    {{#hascourses}}
+    <section class="wt-tp-courses" aria-labelledby="wt-tp-courses-title">
+        <div class="wt-tp-sectionhead">
+            <h2 id="wt-tp-courses-title" class="wt-tp-title">{{#str}} teacher_courses, theme_willedtech {{/str}}</h2>
+            <p class="wt-tp-hint">{{#str}} teacher_courseshint, theme_willedtech {{/str}}</p>
+        </div>
+        <ul class="wt-tp-grid">
+            {{#courses}}
+            <li class="wt-tp-card">
+                <div class="wt-tp-cardhead">
+                    <span class="wt-tp-code">{{shortname}}</span>
+                    <h3 class="wt-tp-coursename"><a href="{{url}}">{{name}}</a></h3>
+                    <p class="wt-tp-meta">{{#str}} teacher_students, theme_willedtech, {{students}} {{/str}}</p>
+                </div>
+
+                {{#hascohort}}
+                <figure class="wt-tp-cohort">
+                    <div class="wt-tp-bars" role="img" aria-label="{{cohortlabel}}">
+                        {{#cohort}}<span class="wt-tp-bar is-{{state}}" style="height: {{height}}px"></span>{{/cohort}}
+                    </div>
+                    <figcaption class="wt-tp-axis">
+                        <span>{{#str}} teacher_unit, theme_willedtech, 1 {{/str}}</span>
+                        <span>{{#str}} teacher_unit, theme_willedtech, {{units}} {{/str}}</span>
+                    </figcaption>
+                </figure>
+                {{/hascohort}}
+                {{^hascohort}}
+                <p class="wt-tp-nocohort">{{#str}} teacher_nocohort, theme_willedtech {{/str}}</p>
+                {{/hascohort}}
+
+                <dl class="wt-tp-stats">
+                    <div><dt>{{#str}} teacher_tograde, theme_willedtech {{/str}}</dt><dd class="{{#pendingalert}}is-alert{{/pendingalert}}">{{pending}}</dd></div>
+                    <div><dt>{{#str}} teacher_avgprogress, theme_willedtech {{/str}}</dt><dd>{{avg}}</dd></div>
+                    <div><dt>{{#str}} teacher_noactivity, theme_willedtech {{/str}}</dt><dd class="{{#idlealert}}is-alert{{/idlealert}}">{{idle}}</dd></div>
+                </dl>
+
+                <div class="wt-tp-actions">
+                    <a class="btn btn-primary" href="{{url}}">{{#str}} teacher_opencourse, theme_willedtech {{/str}}<span class="visually-hidden">: {{name}}</span></a>
+                    <a class="btn btn-outline-primary" href="{{gradesurl}}">{{#str}} teacher_grades, theme_willedtech {{/str}}<span class="visually-hidden">: {{name}}</span></a>
+                </div>
+            </li>
+            {{/courses}}
+        </ul>
+        {{#morecourses}}<p class="wt-tp-hint">{{#str}} teacher_morecourses, theme_willedtech {{/str}}</p>{{/morecourses}}
+    </section>
+    {{/hascourses}}
+
+    <div class="wt-tp-row">
+        <section class="wt-tp-box wt-tp-attention" aria-labelledby="wt-tp-attention-title">
+            <h2 id="wt-tp-attention-title" class="wt-tp-title">{{#str}} teacher_attention, theme_willedtech {{/str}}</h2>
+            {{#hasattention}}
+            <ul class="wt-tp-list">
+                {{#attention}}
+                <li class="wt-tp-person">
+                    <span class="wt-tp-avatar" aria-hidden="true">{{initials}}</span>
+                    <span class="wt-tp-persontext">
+                        <a class="wt-tp-personname" href="{{profileurl}}">{{name}}</a>
+                        <span class="wt-tp-personmeta">{{course}}</span>
+                    </span>
+                    <span class="wt-tp-chip">{{reason}}</span>
+                    <a class="wt-tp-write" href="{{messageurl}}">{{#str}} teacher_write, theme_willedtech {{/str}}<span class="visually-hidden">: {{name}}</span></a>
+                </li>
+                {{/attention}}
+            </ul>
+            {{/hasattention}}
+            {{^hasattention}}
+            <p class="wt-tp-empty">{{#str}} teacher_attentionempty, theme_willedtech, {{idledays}} {{/str}}</p>
+            {{/hasattention}}
+        </section>
+
+        <section class="wt-tp-box wt-tp-week" aria-labelledby="wt-tp-week-title">
+            <div class="wt-tp-sectionhead">
+                <h2 id="wt-tp-week-title" class="wt-tp-title">{{#str}} teacher_week, theme_willedtech {{/str}}</h2>
+                <a class="wt-tp-more" href="{{calendarurl}}">{{#str}} heroagenda, theme_willedtech {{/str}}</a>
+            </div>
+            {{#hasevents}}
+            <ul class="wt-tp-list">
+                {{#events}}
+                <li class="wt-tp-event">
+                    <span class="wt-tp-date" aria-hidden="true"><span class="wt-tp-wd">{{weekday}}</span><span class="wt-tp-d">{{day}}</span></span>
+                    <span class="wt-tp-eventtext">
+                        <span class="wt-tp-eventname">{{name}}</span>
+                        <span class="wt-tp-personmeta">{{weekday}} {{day}} · {{meta}}</span>
+                    </span>
+                </li>
+                {{/events}}
+            </ul>
+            {{/hasevents}}
+            {{^hasevents}}
+            <p class="wt-tp-empty">{{#str}} teacher_weekempty, theme_willedtech {{/str}}</p>
+            {{/hasevents}}
+        </section>
+    </div>
+</div>

@@ -133,10 +133,12 @@ class student_panel implements \renderable, \templatable {
     /**
      * Primera actividad visible con finalización que el estudiante no ha terminado, y su ruta por unidades.
      *
+     * Público: también lo usa el panel del interior del curso (course_panel).
+     *
      * @param \stdClass $course
      * @return array|null null si el curso no usa finalización o ya está todo hecho.
      */
-    private function next_in_course(\stdClass $course): ?array {
+    public function next_in_course(\stdClass $course): ?array {
         global $CFG;
         require_once($CFG->libdir . '/completionlib.php');
         $completion = new \completion_info($course);
@@ -206,6 +208,15 @@ class student_panel implements \renderable, \templatable {
                 'percent' => (int) round(count(array_filter($all)) / count($all) * 100),
             ]),
         ];
+    }
+
+    /**
+     * Próximos eventos de los cursos con que se creó el panel (sin calcular notas ni avisos).
+     *
+     * @return array
+     */
+    public function upcoming(): array {
+        return $this->events()[0];
     }
 
     /**

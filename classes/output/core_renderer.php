@@ -128,6 +128,34 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
+     * Cabecera del contenido del curso (debajo de las pestañas del curso). En el aula, quien estudia ve su panel:
+     * dónde sigue, cuánto lleva, qué vence y a quién escribir. Docentes y edición ven el curso como en Boost.
+     *
+     * @param bool $onlyifnotcalledbefore
+     * @return string
+     */
+    public function course_content_header($onlyifnotcalledbefore = false) {
+        $html = parent::course_content_header($onlyifnotcalledbefore);
+        // El núcleo puede llamar esta función más de una vez por página: el panel se pinta solo la primera.
+        static $painted = false;
+        if ($painted) {
+            return $html;
+        }
+        $course = $this->page->course;
+        if (strpos($this->page->pagetype, 'course-view-') !== 0 || $this->page->user_is_editing()
+                || !isloggedin() || isguestuser() || $course->id == SITEID) {
+            return $html;
+        }
+        $context = \context_course::instance($course->id);
+        if (has_capability('moodle/course:update', $context) || !is_enrolled($context, null, '', true)) {
+            return $html;
+        }
+        $painted = true;
+        return $html . $this->render_from_template('theme_willedtech/course_panel',
+            (new course_panel($course))->export_for_template($this));
+    }
+
+    /**
      * Portada de Administración del sitio (admin/search.php sin búsqueda) vista por quien administra el sitio.
      *
      * @return bool

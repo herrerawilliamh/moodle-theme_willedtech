@@ -1,0 +1,111 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_willedtech/course_panel
+
+    Panel del aula para el estudiante, encima de las secciones: dónde sigue (con su ruta por unidades), su progreso,
+    lo que vence pronto y su docente. Datos de theme_willedtech\output\course_panel.
+
+    Example context (json):
+    {
+        "hasnext": true,
+        "next": {
+            "hasactivity": true, "unitname": "Unidad 2 · Estructuras de control", "activityname": "Condicionales",
+            "activitytype": "Página", "activityurl": "#", "iconurl": "#", "purpose": "content",
+            "position": "Actividad 1 de 2 en esta unidad", "hasroute": true, "progress": "Unidad 2 de 4 · 25 % del curso",
+            "route": [{"state": "done", "first": true, "label": "Unidad 1: completada"}, {"state": "now", "label": "Unidad 2: en curso"}]
+        },
+        "hasprogress": true, "percent": 25,
+        "hasevents": true,
+        "events": [{"weekday": "jue", "day": "19", "name": "Taller 2", "course": "Programación", "time": "18:53", "state": "En 4 días", "tone": "soft"}],
+        "hasteacher": true,
+        "teacher": {"name": "Andrés Ruiz", "role": "Profesor", "initials": "AR", "messageurl": "#"}
+    }
+}}
+<div class="wt-coursepanel">
+    {{#hasnext}}{{#next}}{{#hasactivity}}
+    <section class="wt-cp-box wt-cp-next" aria-labelledby="wt-cp-next-title">
+        <p class="wt-cp-eyebrow"><span class="wt-cp-mark">{{#str}} student_next, theme_willedtech {{/str}}</span></p>
+        <h2 id="wt-cp-next-title" class="wt-cp-unit">{{unitname}}</h2>
+        <a class="wt-cp-activity" href="{{activityurl}}">
+            <span class="wt-cp-activityicon activityiconcontainer {{purpose}}" aria-hidden="true"><img class="activityicon" src="{{iconurl}}" alt=""></span>
+            <span class="wt-cp-activitytext">
+                <span class="wt-cp-activityname">{{activitytype}} · {{activityname}}</span>
+                <span class="wt-cp-meta">{{position}}</span>
+            </span>
+            <span class="btn btn-primary wt-cp-go" aria-hidden="true">{{#str}} student_continue, theme_willedtech {{/str}}</span>
+        </a>
+        {{#hasroute}}
+        <div class="wt-cp-routewrap">
+            <div class="wt-cp-routehead">
+                <span class="wt-cp-routetitle">{{#str}} student_route, theme_willedtech {{/str}}</span>
+                <span class="wt-cp-meta">{{progress}}</span>
+            </div>
+            <ol class="wt-cp-route" aria-label="{{#str}} student_route, theme_willedtech {{/str}}">
+                {{#route}}
+                <li class="wt-cp-stop is-{{state}}{{#first}} is-first{{/first}}">
+                    <span class="wt-cp-line" aria-hidden="true"></span>
+                    <span class="wt-cp-dot"><span class="visually-hidden">{{label}}</span></span>
+                </li>
+                {{/route}}
+            </ol>
+        </div>
+        {{/hasroute}}
+    </section>
+    {{/hasactivity}}{{/next}}{{/hasnext}}
+
+    <div class="wt-cp-side">
+        {{#hasprogress}}
+        <section class="wt-cp-box" aria-labelledby="wt-cp-progress-title">
+            <h2 id="wt-cp-progress-title" class="wt-cp-title">{{#str}} course_progress, theme_willedtech {{/str}}</h2>
+            <p class="wt-cp-percent"><span class="wt-cp-bignum">{{percent}} %</span> <span>{{#str}} course_ofcourse, theme_willedtech {{/str}}</span></p>
+            <div class="progress wt-cp-bar" role="progressbar" aria-valuenow="{{percent}}" aria-valuemin="0" aria-valuemax="100" aria-label="{{#str}} course_progress, theme_willedtech {{/str}}">
+                <div class="progress-bar" style="width: {{percent}}%"></div>
+            </div>
+        </section>
+        {{/hasprogress}}
+
+        <section class="wt-cp-box" aria-labelledby="wt-cp-due-title">
+            <h2 id="wt-cp-due-title" class="wt-cp-title">{{#str}} course_upcoming, theme_willedtech {{/str}}</h2>
+            {{#hasevents}}
+            <ul class="wt-cp-list">
+                {{#events}}
+                <li class="wt-cp-event">
+                    <span class="wt-cp-itemtext">
+                        <span class="wt-cp-itemname">{{name}}</span>
+                        <span class="wt-cp-meta">{{weekday}} {{day}}, {{time}}</span>
+                    </span>
+                    <span class="wt-cp-chip is-{{tone}}">{{state}}</span>
+                </li>
+                {{/events}}
+            </ul>
+            {{/hasevents}}
+            {{^hasevents}}<p class="wt-cp-empty">{{#str}} course_noupcoming, theme_willedtech {{/str}}</p>{{/hasevents}}
+        </section>
+
+        {{#hasteacher}}{{#teacher}}
+        <section class="wt-cp-box" aria-labelledby="wt-cp-teacher-title">
+            <h2 id="wt-cp-teacher-title" class="wt-cp-title">{{role}}</h2>
+            <div class="wt-cp-teacher">
+                <span class="wt-cp-avatar" aria-hidden="true">{{initials}}</span>
+                <span class="wt-cp-itemname">{{name}}</span>
+            </div>
+            <a class="btn btn-outline-primary wt-cp-message" href="{{messageurl}}">{{#str}} course_message, theme_willedtech {{/str}}<span class="visually-hidden">: {{name}}</span></a>
+        </section>
+        {{/teacher}}{{/hasteacher}}
+    </div>
+</div>

@@ -1,0 +1,384 @@
+// WillEdTech Campus · interior del curso (aula): panel del estudiante (course_panel.mustache), índice del curso
+// como ruta y acabado de secciones. El formato del curso no se sustituye: edición, plugins y finalización siguen
+// siendo los de Moodle. Colores con wt-c() para claro y oscuro.
+$wt-cp-ring: 0 0 0 1px wt-c(shadow, 0.07), 0 1px 2px -1px wt-c(shadow, 0.06), 0 4px 12px wt-c(shadow, 0.04);
+
+// ── Panel del estudiante ────────────────────────────────────────────────
+.wt-coursepanel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0.5rem 0 1.5rem;
+
+    .wt-cp-box {
+        min-width: 0;
+        padding: 1.25rem 1.5rem;
+        background: wt-c(surface);
+        border-radius: 0.5rem 1.5rem 0.5rem 1.5rem;
+        box-shadow: $wt-cp-ring;
+        display: flex;
+        flex-direction: column;
+        gap: 0.625rem;
+    }
+
+    // Foco del aula: dónde sigue.
+    .wt-cp-next {
+        gap: 0.875rem;
+        box-shadow: 0 0 0 2px wt-c(ink), 0 0.75rem 2rem wt-c(shadow, 0.1);
+    }
+
+    .wt-cp-side {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+        gap: 1rem;
+        align-items: start;
+    }
+
+    .wt-cp-eyebrow {
+        margin: 0;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: wt-c(ink);
+    }
+
+    .wt-cp-mark {
+        background: linear-gradient(transparent 55%, wt-c(accent, 0.75) 55%);
+        padding: 0 2px;
+    }
+
+    .wt-cp-unit {
+        margin: 0;
+        font-size: 1.5rem;
+        line-height: 1.2;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        text-wrap: balance;
+    }
+
+    .wt-cp-title {
+        margin: 0;
+        font-size: 1.0625rem;
+        font-weight: 800;
+    }
+
+    .wt-cp-activity {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.75rem 1rem;
+        padding: 0.875rem 1rem;
+        border-radius: 0.5rem 1.25rem 0.5rem 1.25rem;
+        background: wt-c(primary-soft);
+        color: wt-c(ink);
+        text-decoration: none;
+        transition: box-shadow 140ms $wt-ease-out;
+
+        &:hover {
+            color: wt-c(ink);
+            box-shadow: inset 0 0 0 1px wt-c(primary-line);
+        }
+
+        &:focus-visible {
+            outline: 2px solid wt-c(focus);
+            outline-offset: 2px;
+        }
+    }
+
+    .wt-cp-activityicon {
+        flex: none;
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 0.375rem 0.875rem 0.375rem 0.875rem;
+    }
+
+    .wt-cp-activitytext {
+        flex: 1 1 12rem;
+        min-width: 0;
+    }
+
+    .wt-cp-activityname {
+        display: block;
+        font-weight: 700;
+    }
+
+    .wt-cp-go {
+        flex: none;
+        min-height: 2.75rem;
+        display: inline-flex;
+        align-items: center;
+        pointer-events: none;
+    }
+
+    .wt-cp-meta {
+        display: block;
+        color: wt-c(ink-soft);
+        font-size: $font-size-sm;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .wt-cp-routewrap {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .wt-cp-routehead {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.25rem 0.75rem;
+        font-size: $font-size-sm;
+
+        .wt-cp-meta {
+            display: inline;
+        }
+    }
+
+    .wt-cp-routetitle {
+        font-weight: 700;
+    }
+
+    // Misma ruta que en el Área personal: hecho en verde azulado, actual en amarillo, pendiente en gris.
+    .wt-cp-route {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .wt-cp-stop {
+        flex: 1 1 0;
+        display: flex;
+        align-items: center;
+
+        &.is-first {
+            flex: none;
+
+            .wt-cp-line {
+                display: none;
+            }
+        }
+    }
+
+    .wt-cp-line {
+        flex: 1 1 auto;
+        height: 3px;
+        border-radius: 2px;
+        background: wt-c(line);
+    }
+
+    .wt-cp-stop.is-done .wt-cp-line,
+    .wt-cp-stop.is-now .wt-cp-line {
+        background: $wt-product-campus;
+    }
+
+    .wt-cp-dot {
+        flex: none;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        box-sizing: border-box;
+        background: wt-c(surface);
+        border: 2px solid wt-c(line-strong);
+    }
+
+    .wt-cp-stop.is-done .wt-cp-dot {
+        background: $wt-product-campus;
+        border-color: $wt-product-campus;
+    }
+
+    .wt-cp-stop.is-now .wt-cp-dot {
+        width: 1.5rem;
+        height: 1.5rem;
+        background: $wt-yellow;
+        border: 0;
+        box-shadow: 0 0 0 3px wt-c(ink);
+    }
+
+    .wt-cp-percent {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+        margin: 0;
+        color: wt-c(ink-soft);
+    }
+
+    .wt-cp-bignum {
+        font-family: $headings-font-family;
+        font-weight: 800;
+        font-size: 2.25rem;
+        line-height: 1;
+        color: wt-c(ink);
+        font-variant-numeric: tabular-nums;
+    }
+
+    .wt-cp-bar {
+        height: 0.625rem;
+        border-radius: 0.1875rem 0.375rem 0.1875rem 0.375rem;
+        background: wt-c(line);
+
+        .progress-bar {
+            background: $wt-product-campus;
+        }
+    }
+
+    .wt-cp-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .wt-cp-event {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.375rem 0.75rem;
+        padding: 0.625rem 0;
+        border-top: 1px solid wt-c(surface-sunken);
+    }
+
+    .wt-cp-itemtext {
+        flex: 1 1 9rem;
+        min-width: 0;
+    }
+
+    .wt-cp-itemname {
+        display: block;
+        font-weight: 700;
+        color: wt-c(ink);
+    }
+
+    .wt-cp-chip {
+        display: inline-flex;
+        align-items: center;
+        height: 1.5rem;
+        padding: 0 0.625rem;
+        border-radius: 0.25rem 0.625rem 0.25rem 0.625rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        white-space: nowrap;
+        background: wt-c(surface-sunken);
+        color: wt-c(ink);
+
+        &.is-due {
+            background: wt-c(warning-soft);
+            color: wt-c(warning-ink);
+        }
+
+        &.is-ok {
+            background: wt-c(success-soft);
+            color: wt-c(success-ink);
+        }
+    }
+
+    .wt-cp-teacher {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .wt-cp-avatar {
+        flex: none;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: wt-c(primary-soft);
+        color: wt-c(primary-ink);
+        font-weight: 700;
+        font-size: 0.8125rem;
+    }
+
+    .wt-cp-message {
+        min-height: 2.75rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .wt-cp-empty {
+        margin: 0;
+        color: wt-c(ink-soft);
+        font-size: $font-size-sm;
+    }
+}
+
+html[data-bs-theme="dark"] .wt-coursepanel .wt-cp-mark {
+    background: $wt-yellow;
+    color: $wt-violet-950;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.125rem 0.375rem 0.125rem 0.375rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wt-coursepanel .wt-cp-activity {
+        transition: none;
+    }
+}
+
+// ── Índice del curso como ruta ──────────────────────────────────────────
+// Cada sección es una parada: su título en negrita y sus actividades colgando de una línea vertical,
+// la misma metáfora de ruta del panel. Solo forma; el índice sigue siendo el de Moodle.
+.courseindex {
+    .courseindex-section {
+        margin-bottom: 0.25rem;
+
+        > .courseindex-item {
+            font-weight: 700;
+        }
+
+        > .courseindex-item-content {
+            margin-left: 0.875rem;
+            padding-left: 0.375rem;
+            border-left: 2px solid wt-c(line);
+        }
+    }
+
+    .courseindex-item {
+        border-radius: 0.25rem 0.75rem 0.25rem 0.75rem;
+
+        &.pageitem {
+            background: wt-c(accent-soft);
+            color: wt-c(ink);
+
+            a {
+                color: wt-c(ink);
+            }
+        }
+    }
+}
+
+// ── Secciones ───────────────────────────────────────────────────────────
+// Los títulos de sección son enlaces: en oscuro Boost los subraya; en el aula se leen como títulos.
+body[class*="path-course-view"] .course-section-header .sectionname a {
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+// Las tarjetas de actividad son enlaces enteros con fondo propio: se distinguen sin subrayado. Boost subraya en
+// oscuro todo enlace de #region-main con un selector muy específico (cinco :not), así que aquí hace falta !important,
+// acotado a estas dos tarjetas.
+.wt-coursepanel .wt-cp-activity,
+.wt-student .wt-sp-activity {
+    &,
+    &:hover,
+    * {
+        text-decoration: none !important;
+    }
+}
+
+// En móvil el aula no va pegada al borde (post.scss quita el relleno de .main-inner en el curso).
+@include media-breakpoint-down(md) {
+    body[class*="path-course-view"] #page.drawers .main-inner {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+}

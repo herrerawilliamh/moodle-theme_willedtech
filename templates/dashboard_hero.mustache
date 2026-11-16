@@ -45,7 +45,8 @@
             <p class="wt-hero-lead">
                 {{#teaches}}{{#str}} teacher_lead, theme_willedtech, { "courses": {{teachercourses}}, "students": {{teacherstudents}} } {{/str}}{{/teaches}}
                 {{^teaches}}
-                    {{#hascourses}}{{#str}} herocourses, theme_willedtech, {{coursecount}} {{/str}}{{/hascourses}}
+                    {{#hasstudentdue}}{{#str}} student_lead, theme_willedtech, { "due": {{studentdue}}, "courses": {{coursecount}} } {{/str}}{{/hasstudentdue}}
+                    {{^hasstudentdue}}{{#hascourses}}{{#str}} herocourses, theme_willedtech, {{coursecount}} {{/str}}{{/hascourses}}{{/hasstudentdue}}
                     {{^hascourses}}{{#str}} heronocourses, theme_willedtech {{/str}}{{/hascourses}}
                 {{/teaches}}
             </p>

@@ -59,7 +59,8 @@ function theme_willedtech_get_extra_scss($theme) {
         . file_get_contents(__DIR__ . '/scss/tokens.scss') . "\n"
         . file_get_contents(__DIR__ . '/scss/post.scss') . "\n"
         . file_get_contents(__DIR__ . '/scss/admin.scss') . "\n"
-        . file_get_contents(__DIR__ . '/scss/teacher.scss');
+        . file_get_contents(__DIR__ . '/scss/teacher.scss') . "\n"
+        . file_get_contents(__DIR__ . '/scss/student.scss');
 }
 
 /**

@@ -1,0 +1,413 @@
+// WillEdTech Campus · Área personal del estudiante (student_panel.mustache).
+// Un solo foco: «Lo siguiente», con el anillo de tinta y la ruta por unidades (la firma de Campus: hecho en verde
+// azulado, lo actual en amarillo, lo pendiente en gris). Colores con wt-c() para claro y oscuro.
+$wt-sp-ring: 0 0 0 1px wt-c(shadow, 0.07), 0 1px 2px -1px wt-c(shadow, 0.06), 0 4px 12px wt-c(shadow, 0.04);
+
+.wt-student {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 0 0 2rem;
+
+    .wt-sp-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        // Cada caja con su altura: «Lo siguiente» no se estira hasta la semana y no deja hueco antes de los botones.
+        align-items: flex-start;
+
+        &:not(:has(> *)) {
+            display: none;
+        }
+    }
+
+    .wt-sp-box {
+        min-width: 0;
+        padding: 1.5rem 1.75rem;
+        background: wt-c(surface);
+        border-radius: 0.5rem 1.5rem 0.5rem 1.5rem;
+        box-shadow: $wt-sp-ring;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .wt-sp-next {
+        flex: 999 1 32rem;
+        gap: 1rem;
+        box-shadow: 0 0 0 2px wt-c(ink), 0 0.75rem 2rem wt-c(shadow, 0.1);
+    }
+
+    .wt-sp-week {
+        flex: 1 1 20rem;
+    }
+
+    .wt-sp-half {
+        flex: 1 1 24rem;
+    }
+
+    .wt-sp-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 0.25rem 1rem;
+    }
+
+    .wt-sp-title {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+    }
+
+    .wt-sp-more {
+        font-weight: 700;
+        font-size: $font-size-sm;
+    }
+
+    // «Lo siguiente».
+    .wt-sp-eyebrow {
+        margin: 0;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: wt-c(ink);
+    }
+
+    // Subrayado de resaltador: el amarillo marca solo «lo siguiente».
+    .wt-sp-mark {
+        background: linear-gradient(transparent 55%, wt-c(accent, 0.75) 55%);
+        padding: 0 2px;
+    }
+
+    .wt-sp-course {
+        margin: 0;
+        font-weight: 700;
+
+        a {
+            color: wt-c(ink-soft);
+            text-decoration: none;
+
+            &:hover {
+                color: wt-c(primary-ink);
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .wt-sp-unit {
+        margin: 0;
+        font-size: 1.75rem;
+        line-height: 1.15;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        text-wrap: balance;
+    }
+
+    .wt-sp-activity {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem 1.25rem 0.5rem 1.25rem;
+        background: wt-c(primary-soft);
+        color: wt-c(ink);
+        text-decoration: none;
+        transition: box-shadow 140ms $wt-ease-out;
+
+        &:hover {
+            color: wt-c(ink);
+            box-shadow: inset 0 0 0 1px wt-c(primary-line);
+        }
+    }
+
+    // El color de fondo y del ícono los pone Boost (.activityiconcontainer.<propósito>), igual que en el curso.
+    .wt-sp-activityicon {
+        flex: none;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 0.375rem 1rem 0.375rem 1rem;
+    }
+
+    .wt-sp-activitytext {
+        min-width: 0;
+    }
+
+    .wt-sp-activityname {
+        display: block;
+        font-weight: 700;
+        font-size: 1.0625rem;
+    }
+
+    .wt-sp-activitymeta {
+        display: block;
+        color: wt-c(ink-soft);
+        font-size: $font-size-sm;
+    }
+
+    .wt-sp-routewrap {
+        display: flex;
+        flex-direction: column;
+        gap: 0.625rem;
+    }
+
+    .wt-sp-routehead {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.25rem 0.75rem;
+        font-size: $font-size-sm;
+    }
+
+    .wt-sp-routetitle {
+        font-weight: 700;
+    }
+
+    .wt-sp-routemeta {
+        color: wt-c(ink-soft);
+        font-variant-numeric: tabular-nums;
+    }
+
+    // Ruta: paradas unidas por una línea. Cada parada ocupa el tramo que la precede.
+    .wt-sp-route {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .wt-sp-stop {
+        flex: 1 1 0;
+        display: flex;
+        align-items: center;
+
+        &.is-first {
+            flex: none;
+
+            .wt-sp-line {
+                display: none;
+            }
+        }
+    }
+
+    .wt-sp-line {
+        flex: 1 1 auto;
+        height: 3px;
+        border-radius: 2px;
+        background: wt-c(line);
+    }
+
+    .wt-sp-stop.is-done .wt-sp-line,
+    .wt-sp-stop.is-now .wt-sp-line {
+        background: $wt-product-campus;
+    }
+
+    .wt-sp-dot {
+        flex: none;
+        width: 1.125rem;
+        height: 1.125rem;
+        border-radius: 50%;
+        box-sizing: border-box;
+        background: wt-c(surface);
+        border: 2px solid wt-c(line-strong);
+    }
+
+    .wt-sp-stop.is-done .wt-sp-dot {
+        background: $wt-product-campus;
+        border-color: $wt-product-campus;
+    }
+
+    .wt-sp-stop.is-now .wt-sp-dot {
+        width: 1.625rem;
+        height: 1.625rem;
+        background: $wt-yellow;
+        border: 0;
+        box-shadow: 0 0 0 3px wt-c(ink);
+    }
+
+    .wt-sp-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: auto;
+
+        .btn {
+            min-height: 2.75rem;
+            display: inline-flex;
+            align-items: center;
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+        }
+    }
+
+    // Listas: semana, notas, avisos.
+    .wt-sp-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .wt-sp-event,
+    .wt-sp-grade,
+    .wt-sp-newsitem {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem 0.875rem;
+        padding: 0.75rem 0;
+        border-top: 1px solid wt-c(surface-sunken);
+    }
+
+    .wt-sp-newsitem {
+        align-items: flex-start;
+        flex-wrap: nowrap;
+    }
+
+    .wt-sp-date {
+        flex: none;
+        width: 3rem;
+        text-align: center;
+        line-height: 1.1;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .wt-sp-wd {
+        display: block;
+        font-size: 0.6875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: wt-c(ink-soft);
+    }
+
+    .wt-sp-d {
+        display: block;
+        font-family: $headings-font-family;
+        font-weight: 800;
+        font-size: 1.375rem;
+        color: wt-c(ink);
+    }
+
+    .wt-sp-itemtext {
+        flex: 1 1 10rem;
+        min-width: 0;
+    }
+
+    .wt-sp-itemname {
+        display: block;
+        font-weight: 700;
+        color: wt-c(ink);
+    }
+
+    a.wt-sp-itemname {
+        text-decoration: none;
+
+        &:hover {
+            color: wt-c(primary-ink);
+            text-decoration: underline;
+        }
+    }
+
+    .wt-sp-itemmeta {
+        display: block;
+        color: wt-c(ink-soft);
+        font-size: $font-size-sm;
+    }
+
+    .wt-sp-excerpt {
+        display: block;
+        color: wt-c(ink);
+    }
+
+    .wt-sp-chip {
+        display: inline-flex;
+        align-items: center;
+        height: 1.5rem;
+        padding: 0 0.625rem;
+        border-radius: 0.25rem 0.625rem 0.25rem 0.625rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        white-space: nowrap;
+        background: wt-c(surface-sunken);
+        color: wt-c(ink);
+
+        &.is-due {
+            background: wt-c(warning-soft);
+            color: wt-c(warning-ink);
+        }
+
+        &.is-ok {
+            background: wt-c(success-soft);
+            color: wt-c(success-ink);
+        }
+    }
+
+    .wt-sp-score {
+        font-family: $headings-font-family;
+        font-weight: 800;
+        font-size: 1.25rem;
+        font-variant-numeric: tabular-nums;
+        color: wt-c(ink);
+    }
+
+    .wt-sp-avatar {
+        flex: none;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: wt-c(primary-soft);
+        color: wt-c(primary-ink);
+        font-weight: 700;
+        font-size: 0.8125rem;
+    }
+
+    .wt-sp-empty {
+        margin: 0;
+        padding: 1rem;
+        border-radius: 0.375rem 1rem 0.375rem 1rem;
+        background: wt-c(surface-sunken);
+        color: wt-c(ink-soft);
+    }
+
+    a:focus-visible {
+        outline: 2px solid wt-c(focus);
+        outline-offset: 2px;
+        box-shadow: none;
+    }
+}
+
+// En oscuro el texto claro sobre el amarillo no se lee: el resaltador pasa a bloque completo con tinta violeta.
+html[data-bs-theme="dark"] .wt-student .wt-sp-mark {
+    background: $wt-yellow;
+    color: $wt-violet-950;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.125rem 0.375rem 0.125rem 0.375rem;
+}
+
+@include media-breakpoint-down(sm) {
+    .wt-student {
+        .wt-sp-box {
+            padding: 1.25rem;
+        }
+
+        .wt-sp-unit {
+            font-size: 1.375rem;
+        }
+
+        .wt-sp-actions .btn {
+            flex: 1 1 auto;
+            justify-content: center;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wt-student .wt-sp-activity {
+        transition: none;
+    }
+}

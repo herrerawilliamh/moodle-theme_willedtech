@@ -1,0 +1,152 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_willedtech/student_panel
+
+    Área personal del estudiante: «Lo siguiente» (foco de la página, con su ruta por unidades), «Esta semana»,
+    calificaciones recientes y avisos. Datos de theme_willedtech\output\student_panel.
+
+    Example context (json):
+    {
+        "hasnext": true,
+        "next": {
+            "coursename": "Fundamentos de Programación", "courseurl": "#", "hasactivity": true,
+            "unitname": "Unidad 3 · Estructuras de control", "activityname": "Condicionales if / else",
+            "activitytype": "Página", "activityurl": "#", "iconurl": "#", "position": "Actividad 2 de 5 en esta unidad",
+            "hasroute": true, "progress": "Unidad 3 de 8 · 29 %",
+            "route": [{"state": "done", "first": true, "label": "Unidad 1: completada"}, {"state": "now", "label": "Unidad 2: en curso"}, {"state": "todo", "label": "Unidad 3: pendiente"}]
+        },
+        "hasevents": true,
+        "events": [{"weekday": "jue", "day": "19", "name": "Taller 2", "course": "Programación", "time": "18:53", "state": "Mañana", "tone": "due"}],
+        "calendarurl": "#",
+        "hasgrades": true,
+        "grades": [{"name": "Taller 1", "course": "Programación", "when": "15/11/26", "grade": "4,6", "url": "#"}],
+        "gradesurl": "#",
+        "hasnews": true,
+        "news": [{"title": "Cambio de fecha", "excerpt": "El taller se entrega el domingo.", "initials": "AR", "meta": "Andrés Ruiz · Programación · 14/11/26", "url": "#"}]
+    }
+}}
+<div class="wt-student">
+    <div class="wt-sp-row">
+        {{#hasnext}}{{#next}}
+        <section class="wt-sp-box wt-sp-next" aria-labelledby="wt-sp-next-title">
+            <p class="wt-sp-eyebrow"><span class="wt-sp-mark">{{#str}} student_next, theme_willedtech {{/str}}</span></p>
+            <p class="wt-sp-course"><a href="{{courseurl}}">{{coursename}}</a></p>
+            {{#hasactivity}}
+                <h2 id="wt-sp-next-title" class="wt-sp-unit">{{unitname}}</h2>
+                <a class="wt-sp-activity" href="{{activityurl}}">
+                    <span class="wt-sp-activityicon activityiconcontainer {{purpose}}" aria-hidden="true"><img class="activityicon" src="{{iconurl}}" alt=""></span>
+                    <span class="wt-sp-activitytext">
+                        <span class="wt-sp-activityname">{{activitytype}} · {{activityname}}</span>
+                        <span class="wt-sp-activitymeta">{{position}}</span>
+                    </span>
+                </a>
+                {{#hasroute}}
+                <div class="wt-sp-routewrap">
+                    <div class="wt-sp-routehead">
+                        <span class="wt-sp-routetitle">{{#str}} student_route, theme_willedtech {{/str}}</span>
+                        <span class="wt-sp-routemeta">{{progress}}</span>
+                    </div>
+                    <ol class="wt-sp-route" aria-label="{{#str}} student_route, theme_willedtech {{/str}}">
+                        {{#route}}
+                        <li class="wt-sp-stop is-{{state}}{{#first}} is-first{{/first}}">
+                            <span class="wt-sp-line" aria-hidden="true"></span>
+                            <span class="wt-sp-dot"><span class="visually-hidden">{{label}}</span></span>
+                        </li>
+                        {{/route}}
+                    </ol>
+                </div>
+                {{/hasroute}}
+                <div class="wt-sp-actions">
+                    <a class="btn btn-primary" href="{{activityurl}}">{{#str}} student_continue, theme_willedtech {{/str}}<span class="visually-hidden">: {{activityname}}</span></a>
+                    <a class="btn btn-outline-primary" href="{{courseurl}}">{{#str}} student_viewcourse, theme_willedtech {{/str}}</a>
+                </div>
+            {{/hasactivity}}
+            {{^hasactivity}}
+                <h2 id="wt-sp-next-title" class="wt-sp-unit">{{#str}} student_alldone, theme_willedtech {{/str}}</h2>
+                <div class="wt-sp-actions">
+                    <a class="btn btn-primary" href="{{courseurl}}">{{#str}} student_viewcourse, theme_willedtech {{/str}}</a>
+                </div>
+            {{/hasactivity}}
+        </section>
+        {{/next}}{{/hasnext}}
+
+        <section class="wt-sp-box wt-sp-week" aria-labelledby="wt-sp-week-title">
+            <div class="wt-sp-head">
+                <h2 id="wt-sp-week-title" class="wt-sp-title">{{#str}} student_week, theme_willedtech {{/str}}</h2>
+                <a class="wt-sp-more" href="{{calendarurl}}">{{#str}} heroagenda, theme_willedtech {{/str}}</a>
+            </div>
+            {{#hasevents}}
+            <ul class="wt-sp-list">
+                {{#events}}
+                <li class="wt-sp-event">
+                    <span class="wt-sp-date" aria-hidden="true"><span class="wt-sp-wd">{{weekday}}</span><span class="wt-sp-d">{{day}}</span></span>
+                    <span class="wt-sp-itemtext">
+                        <span class="wt-sp-itemname">{{name}}</span>
+                        <span class="wt-sp-itemmeta">{{weekday}} {{day}}, {{time}} · {{course}}</span>
+                    </span>
+                    <span class="wt-sp-chip is-{{tone}}">{{state}}</span>
+                </li>
+                {{/events}}
+            </ul>
+            {{/hasevents}}
+            {{^hasevents}}
+            <p class="wt-sp-empty">{{#str}} student_weekempty, theme_willedtech {{/str}}</p>
+            {{/hasevents}}
+        </section>
+    </div>
+
+    {{! Sin notas ni avisos no se pintan cajas vacías: la fila queda sin hijos y el CSS la oculta. }}
+    <div class="wt-sp-row">
+        {{#hasgrades}}
+        <section class="wt-sp-box wt-sp-half" aria-labelledby="wt-sp-grades-title">
+            <div class="wt-sp-head">
+                <h2 id="wt-sp-grades-title" class="wt-sp-title">{{#str}} student_grades, theme_willedtech {{/str}}</h2>
+                <a class="wt-sp-more" href="{{gradesurl}}">{{#str}} student_allgrades, theme_willedtech {{/str}}</a>
+            </div>
+            <ul class="wt-sp-list">
+                {{#grades}}
+                <li class="wt-sp-grade">
+                    <span class="wt-sp-itemtext">
+                        <a class="wt-sp-itemname" href="{{url}}">{{name}}</a>
+                        <span class="wt-sp-itemmeta">{{course}} · {{when}}</span>
+                    </span>
+                    <span class="wt-sp-score">{{grade}}</span>
+                </li>
+                {{/grades}}
+            </ul>
+        </section>
+        {{/hasgrades}}
+        {{#hasnews}}
+        <section class="wt-sp-box wt-sp-half" aria-labelledby="wt-sp-news-title">
+            <h2 id="wt-sp-news-title" class="wt-sp-title">{{#str}} student_news, theme_willedtech {{/str}}</h2>
+            <ul class="wt-sp-list">
+                {{#news}}
+                <li class="wt-sp-newsitem">
+                    <span class="wt-sp-avatar" aria-hidden="true">{{initials}}</span>
+                    <span class="wt-sp-itemtext">
+                        <a class="wt-sp-itemname" href="{{url}}">{{title}}</a>
+                        <span class="wt-sp-excerpt">{{excerpt}}</span>
+                        <span class="wt-sp-itemmeta">{{meta}}</span>
+                    </span>
+                </li>
+                {{/news}}
+            </ul>
+        </section>
+        {{/hasnews}}
+    </div>
+</div>

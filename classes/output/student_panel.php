@@ -229,12 +229,17 @@ class student_panel implements \renderable, \templatable {
         if (!$this->courses) {
             return [[], 0];
         }
-        [$insql, $params] = $DB->get_in_or_equal(array_keys($this->courses), SQL_PARAMS_NAMED);
+        // Solo eventos que el estudiante puede ver: grupo, anulaciones y eventos personales (event_scope).
+        [$scope, $params] = \theme_willedtech\local\event_scope::where(array_keys($this->courses), (int) $USER->id);
         $now = time();
         $params += ['from' => $now, 'to' => $now + self::WEEK_DAYS * DAYSECS];
-        $rows = $DB->get_records_select('event',
-            "courseid $insql AND visible = 1 AND timestart BETWEEN :from AND :to",
-            $params, 'timestart ASC', 'id, name, courseid, modulename, instance, eventtype, timestart', 0, self::MAX_EVENTS);
+        // Se leen todos los de la semana: el conteo de entregas pendientes no puede depender del límite de la lista.
+        $rows = $DB->get_records_sql(
+            "SELECT e.id, e.name, e.courseid, e.modulename, e.instance, e.eventtype, e.timestart
+               FROM {event} e
+              WHERE $scope AND e.timestart BETWEEN :from AND :to
+           ORDER BY e.timestart ASC, e.id ASC",
+            $params);
 
         $out = [];
         $duecount = 0;
@@ -255,6 +260,10 @@ class student_panel implements \renderable, \templatable {
                 if (!$submitted) {
                     $duecount++;
                 }
+            }
+            if (count($out) >= self::MAX_EVENTS) {
+                // La lista ya está completa; se sigue solo para contar entregas pendientes.
+                continue;
             }
             $days = (int) floor((usergetmidnight($row->timestart) - $today) / DAYSECS);
             if ($submitted) {
@@ -277,6 +286,27 @@ class student_panel implements \renderable, \templatable {
             ];
         }
         return [$out, $duecount];
+    }
+
+    /**
+     * ¿Puede el usuario leer esta discusión? Mismas reglas que el foro: permiso de ver discusiones y, en grupos
+     * separados, ser del grupo de la discusión o tener moodle/site:accessallgroups. Las discusiones para todos los
+     * participantes (groupid -1 o 0) las ve cualquiera que vea el foro.
+     *
+     * @param \cm_info $cm
+     * @param \context_module $context
+     * @param int $groupid
+     * @return bool
+     */
+    private function can_see_discussion(\cm_info $cm, \context_module $context, int $groupid): bool {
+        global $USER;
+        if (!has_capability('mod/forum:viewdiscussion', $context)) {
+            return false;
+        }
+        if ($groupid <= 0 || groups_get_activity_groupmode($cm) != SEPARATEGROUPS) {
+            return true;
+        }
+        return groups_is_member($groupid, $USER->id) || has_capability('moodle/site:accessallgroups', $context);
     }
 
     /**
@@ -329,7 +359,8 @@ class student_panel implements \renderable, \templatable {
         $now = time();
         $fields = \core_user\fields::for_name()->get_sql('u', false, '', '', false)->selects;
         $rows = $DB->get_records_sql(
-            "SELECT d.id, d.name, d.timemodified, d.forum, d.course, p.message, p.messageformat, u.id AS authorid, $fields
+            "SELECT d.id, d.name, d.timemodified, d.forum, d.course, d.groupid,
+                    p.message, p.messageformat, u.id AS authorid, $fields
                FROM {forum_discussions} d
                JOIN {forum} f ON f.id = d.forum AND f.type = 'news'
                JOIN {forum_posts} p ON p.id = d.firstpost
@@ -337,7 +368,7 @@ class student_panel implements \renderable, \templatable {
               WHERE d.course $insql AND (d.timestart = 0 OR d.timestart <= :now1)
                 AND (d.timeend = 0 OR d.timeend > :now2)
            ORDER BY d.timemodified DESC",
-            ['now1' => $now, 'now2' => $now] + $params, 0, self::MAX_NEWS * 3
+            ['now1' => $now, 'now2' => $now] + $params, 0, self::MAX_NEWS * 10
         );
         $out = [];
         foreach ($rows as $row) {
@@ -346,6 +377,9 @@ class student_panel implements \renderable, \templatable {
                 continue;
             }
             $context = \context_module::instance($cm->id);
+            if (!$this->can_see_discussion($cm, $context, (int) $row->groupid)) {
+                continue;
+            }
             $text = html_to_text(format_text($row->message, $row->messageformat, ['context' => $context]), 0, false);
             $out[] = [
                 'title' => format_string($row->name, true, ['context' => $context]),

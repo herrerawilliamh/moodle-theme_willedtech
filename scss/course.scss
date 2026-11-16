@@ -354,12 +354,18 @@ html[data-bs-theme="dark"] .wt-coursepanel .wt-cp-mark {
 }
 
 // ── Secciones ───────────────────────────────────────────────────────────
-// Los títulos de sección son enlaces: en oscuro Boost los subraya; en el aula se leen como títulos.
-body[class*="path-course-view"] .course-section-header .sectionname a {
-    text-decoration: none;
+// Títulos de sección y nombres de actividad son enlaces dentro de tarjetas: ya se ven como destino de clic. En oscuro
+// Boost subraya todo enlace de #region-main con un selector de cinco :not(); aquí se quita con !important acotado a
+// estos dos enlaces, y el subrayado vuelve al pasar el cursor o con el foco.
+body[class*="path-course-view"] {
+    .course-section-header .sectionname a,
+    .activity-item .activityname a {
+        text-decoration: none !important;
 
-    &:hover {
-        text-decoration: underline;
+        &:hover,
+        &:focus-visible {
+            text-decoration: underline !important;
+        }
     }
 }
 

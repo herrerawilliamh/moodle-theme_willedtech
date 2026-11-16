@@ -67,6 +67,15 @@ class teacher_panel implements \renderable, \templatable {
     }
 
     /**
+     * Ids de los cursos donde enseña (los demás cursos matriculados son de estudiante).
+     *
+     * @return int[]
+     */
+    public function course_ids(): array {
+        return array_keys($this->courses);
+    }
+
+    /**
      * Resumen de entregas por calificar, para el encabezado.
      *
      * @return array
@@ -361,11 +370,17 @@ class teacher_panel implements \renderable, \templatable {
         if (!$this->courses) {
             return [];
         }
-        [$insql, $params] = $DB->get_in_or_equal(array_keys($this->courses), SQL_PARAMS_NAMED);
+        global $USER;
+        // Mismo alcance que el calendario: grupos (todos si puede verlos), anulaciones y eventos personales.
+        [$scope, $params] = \theme_willedtech\local\event_scope::where(array_keys($this->courses), (int) $USER->id);
         $now = time();
         $params += ['from' => $now, 'to' => $now + 7 * DAYSECS];
-        $rows = $DB->get_records_select('event', "courseid $insql AND visible = 1 AND timestart BETWEEN :from AND :to",
-            $params, 'timestart ASC', 'id, name, courseid, timestart', 0, self::MAX_EVENTS);
+        $rows = $DB->get_records_sql(
+            "SELECT e.id, e.name, e.courseid, e.timestart
+               FROM {event} e
+              WHERE $scope AND e.timestart BETWEEN :from AND :to
+           ORDER BY e.timestart ASC, e.id ASC",
+            $params, 0, self::MAX_EVENTS);
         $out = [];
         foreach ($rows as $row) {
             $context = \context_course::instance($row->courseid);

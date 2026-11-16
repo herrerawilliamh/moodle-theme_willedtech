@@ -117,12 +117,17 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $data['teachercourses'] = $teacher->course_count();
             $data['teacherstudents'] = $teacher->student_count();
             $panel = $this->render_from_template('theme_willedtech/teacher_panel', $teacher->export_for_template($this));
-        } else if ($count > 0) {
-            // Estudiante: «Lo siguiente», su semana, notas recientes y avisos. El encabezado cuenta sus entregas.
-            $student = new student_panel($courses);
-            $data['studentdue'] = $student->due_this_week();
-            $data['hasstudentdue'] = $data['studentdue'] > 0;
-            $panel = $this->render_from_template('theme_willedtech/student_panel', $student->export_for_template($this));
+        }
+        // Estudiante: «Lo siguiente», su semana, notas recientes y avisos, con los cursos donde no enseña. Quien enseña
+        // en unos cursos y estudia en otros ve los dos paneles (el docente primero).
+        $studentcourses = array_diff_key($courses, array_flip($teacher->course_ids()));
+        if ($studentcourses) {
+            $student = new student_panel($studentcourses);
+            if (!$teachesany) {
+                $data['studentdue'] = $student->due_this_week();
+                $data['hasstudentdue'] = $data['studentdue'] > 0;
+            }
+            $panel .= $this->render_from_template('theme_willedtech/student_panel', $student->export_for_template($this));
         }
         return $this->render_from_template('theme_willedtech/dashboard_hero', $data) . $html . $panel;
     }

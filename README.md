@@ -37,3 +37,10 @@ Tras actualizar, sube `$plugin->version` en `version.php` y purga cachés.
 - `classes/output/core_renderer.php`: `favicon()` devuelve `pix/campus-favicon.svg` (solo la C) sin tocar `pix/favicon.svg` de Brand.
 - `scss/post.scss`: logo vertical de acceso a 72 px (antes 112); `#username` y `#password` (incluido su input-group) con ancho completo y 3 rem de alto; botón de acceso a ancho completo; espaciado, hover y foco de la navegación superior.
 - Naming: cadenas del tema ya dicen "WillEdTech Campus". "Cursos/Mis cursos" son cadenas del core de Moodle y no se tocan; el nombre del sitio se fija en *Página principal > Configuración* (ver Instalar).
+
+## Mis cursos: tarjetas y gestión rápida (1.1.0)
+- `templates/core_course/coursecard.mustache`: pie compacto (entrar · interruptor · menú), sello «Oculto a los estudiantes» y portada tipográfica de marca cuando el curso no tiene imagen.
+- `templates/block_myoverview/view-cards.mustache` y `course-action-menu.mustache`: menú ⋮ en dos grupos («Mi vista» y «Gestión del curso») y carga de `theme_willedtech/quickmanage`.
+- `amd/src/quickmanage.js`: interruptor de visibilidad, atajos (ocultar/mostrar, editar ajustes, participantes) y filtros Todos · Visibles · Ocultos · Favoritos. `amd/build/quickmanage.min.js` es copia literal (el tema no usa Grunt): si cambias `src`, copia el archivo.
+- `db/services.php` + `classes/external/`: `theme_willedtech_course_quickstate` (permisos, solo lectura) y `theme_willedtech_set_course_visibility` (exige `moodle/course:visibility`). Al instalar, completa la actualización para registrarlos.
+- Los filtros cuentan las tarjetas cargadas en pantalla; con paginación, solo las de la página.

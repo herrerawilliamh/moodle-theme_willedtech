@@ -335,10 +335,6 @@ h1, h2, h3, .h1, .h2, .h3,
         flex: 1 1 auto;
     }
 
-    .wt-coursecard-footer {
-        padding: 0 1rem;
-    }
-
     .wt-coursecard-action {
         padding: 0.75rem 1rem 1rem;
         margin-top: auto;
@@ -592,6 +588,239 @@ body[class*="path-course-view"] {
         &:hover {
             transform: none;
         }
+    }
+}
+
+// ── Mis cursos · tarjeta compacta y gestión rápida ─────────────────────
+// Estructura: templates/core_course/coursecard.mustache y block_myoverview/view-cards.mustache.
+// Comportamiento: amd/src/quickmanage.js (interruptor de visibilidad, atajos del menú y filtros rápidos).
+.block_myoverview .wt-coursecard {
+    .wt-coursecard-cover-link {
+        position: relative;
+    }
+
+    .wt-coursecard-cover {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        transition: filter 0.2s $wt-ease-out, opacity 0.2s $wt-ease-out;
+    }
+
+    // Portada tipográfica: solo cuando Moodle puso su patrón genérico (un SVG en data:), que no dice nada del curso.
+    .wt-coursecard-cover-title {
+        display: none;
+    }
+
+    .wt-coursecard-cover[style*="data:image/svg"] {
+        background-image: linear-gradient(135deg, wt-c(primary), wt-c(secondary)) !important;
+
+        .wt-coursecard-cover-title {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            padding: 0.875rem 1rem;
+            color: wt-c(primary-on);
+            font-family: var(--wt-font-heading, inherit);
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.2;
+            text-wrap: balance;
+        }
+    }
+
+    // Sello «Oculto a los estudiantes»: siempre en el DOM, visible solo en tarjetas ocultas.
+    .wt-coursecard-hiddenseal {
+        position: absolute;
+        top: 0.625rem;
+        left: 0.625rem;
+        display: none;
+        align-items: center;
+        gap: 0.375rem;
+        padding: 0.25rem 0.625rem 0.25rem 0.5rem;
+        border: 1px solid wt-c(line-strong);
+        border-radius: 999px;
+        background: wt-c(surface-raised);
+        color: wt-c(ink);
+        font-size: $font-size-sm;
+        font-weight: 700;
+        line-height: 1.2;
+        box-shadow: 0 0.125rem 0.5rem wt-c(shadow, 0.18);
+    }
+
+    &.wt-coursecard--hidden {
+        border-style: dashed;
+        border-color: wt-c(line-strong);
+
+        .wt-coursecard-cover {
+            filter: grayscale(0.85);
+            opacity: 0.55;
+        }
+
+        .wt-coursecard-hiddenseal {
+            display: inline-flex;
+        }
+
+        .coursename {
+            color: wt-c(ink-soft);
+        }
+    }
+
+    .card-body {
+        padding: 0.875rem 1rem 0.5rem;
+    }
+
+    .wt-coursecard-category {
+        font-size: $font-size-sm;
+    }
+
+    .wt-coursecard-progress {
+        margin-top: 0.625rem;
+        font-size: $font-size-sm;
+    }
+
+    // Una sola fila: entrar · interruptor · menú. Sustituye la fila del menú suelto que dejaba un hueco.
+    .wt-coursecard-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: auto;
+        padding: 0.625rem 0.5rem 0.75rem 1rem;
+        border-top: 1px solid wt-c(line);
+    }
+
+    .wt-coursecard-quick {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+        min-width: 0;
+    }
+
+    .wt-coursecard-menu {
+        flex: none;
+
+        .coursemenubtn {
+            width: 2rem;
+            height: 2rem;
+        }
+    }
+
+    .wt-visswitch {
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+        margin: 0;
+        min-height: 2rem;
+
+        .form-check-input {
+            cursor: pointer;
+        }
+
+        .form-check-label {
+            font-size: $font-size-sm;
+            font-weight: 600;
+            color: wt-c(ink-soft);
+            cursor: pointer;
+            user-select: none;
+        }
+    }
+
+    &.wt-coursecard--busy .wt-coursecard-actions {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    // Menú ⋮: grupos «Mi vista» y «Gestión del curso» separados, con iconos alineados.
+    .wt-coursemenu {
+        min-width: 14rem;
+
+        .dropdown-header {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: wt-c(ink-soft);
+        }
+
+        .dropdown-item .icon {
+            margin-right: 0.5rem;
+            color: wt-c(ink-soft);
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .block_myoverview .wt-coursecard .wt-coursecard-cover {
+        transition: none;
+    }
+}
+
+// Filtros rápidos sobre las tarjetas en pantalla (solo para quien gestiona algún curso).
+.wt-quickfilter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.25rem 0 1rem;
+}
+
+.wt-quickfilter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.5rem 0.3rem 0.85rem;
+    border: 1px solid wt-c(line);
+    border-radius: 999px;
+    background: wt-c(surface);
+    color: wt-c(ink-soft);
+    font-size: $font-size-sm;
+    font-weight: 600;
+    line-height: 1.2;
+    transition: background-color 0.15s $wt-ease-out, border-color 0.15s $wt-ease-out, color 0.15s $wt-ease-out;
+
+    &:hover {
+        border-color: wt-c(line-strong);
+        color: wt-c(ink);
+    }
+
+    &:focus-visible {
+        outline: 2px solid wt-c(focus);
+        outline-offset: 2px;
+    }
+
+    &[aria-pressed="true"] {
+        border-color: wt-c(primary-line);
+        background: wt-c(primary-soft);
+        color: wt-c(primary-ink);
+    }
+
+    .wt-quickfilter-count {
+        min-width: 1.5rem;
+        padding: 0.1rem 0.4rem;
+        border-radius: 999px;
+        background: wt-c(surface-sunken);
+        font-variant-numeric: tabular-nums;
+        text-align: center;
+    }
+
+    &[aria-pressed="true"] .wt-quickfilter-count {
+        background: wt-c(surface);
+    }
+}
+
+// «Mis cursos»: el título del bloque repite el de la página (queda para lectores de pantalla) y los controles
+// se quedan a la vista al desplazarse por una lista larga.
+#page-my-courses .block_myoverview {
+    > .card-body > .card-title {
+        @include visually-hidden();
+    }
+
+    [data-region="filter"] {
+        position: sticky;
+        top: 0;
+        z-index: 3;
+        margin-top: 0 !important;
+        padding: 0.5rem 0;
+        background: wt-c(surface);
     }
 }
 

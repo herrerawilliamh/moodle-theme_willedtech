@@ -138,3 +138,19 @@ $string['course_noupcoming'] = 'Nothing is due in this course in the next 7 days
 $string['course_ofcourse'] = 'of the course';
 $string['course_progress'] = 'Your progress';
 $string['course_upcoming'] = 'Coming up';
+
+// My courses · quick management.
+$string['filter_all'] = 'All';
+$string['filter_favourites'] = 'Starred';
+$string['filter_hidden'] = 'Hidden';
+$string['filter_label'] = 'Filter the courses on screen';
+$string['filter_visible'] = 'Visible';
+$string['hidefromstudents'] = 'Hide from students';
+$string['menumanage'] = 'Course management';
+$string['menumyview'] = 'My view';
+$string['qm_hidden'] = 'Hidden';
+$string['qm_switch_aria'] = 'Visible to students: {$a}';
+$string['qm_toast_hidden'] = '“{$a}” is now hidden from students.';
+$string['qm_toast_shown'] = '“{$a}” is now visible to students.';
+$string['qm_visible'] = 'Visible';
+$string['showtostudents'] = 'Show to students';

@@ -138,3 +138,19 @@ $string['course_noupcoming'] = 'Nada vence en este curso en los próximos 7 día
 $string['course_ofcourse'] = 'del curso';
 $string['course_progress'] = 'Tu progreso';
 $string['course_upcoming'] = 'Próximas entregas';
+
+// Mis cursos · gestión rápida.
+$string['filter_all'] = 'Todos';
+$string['filter_favourites'] = 'Favoritos';
+$string['filter_hidden'] = 'Ocultos';
+$string['filter_label'] = 'Filtrar los cursos en pantalla';
+$string['filter_visible'] = 'Visibles';
+$string['hidefromstudents'] = 'Ocultar a estudiantes';
+$string['menumanage'] = 'Gestión del curso';
+$string['menumyview'] = 'Mi vista';
+$string['qm_hidden'] = 'Oculto';
+$string['qm_switch_aria'] = 'Visible para estudiantes: {$a}';
+$string['qm_toast_hidden'] = '«{$a}» ya no es visible para los estudiantes.';
+$string['qm_toast_shown'] = '«{$a}» ya es visible para los estudiantes.';
+$string['qm_visible'] = 'Visible';
+$string['showtostudents'] = 'Mostrar a estudiantes';

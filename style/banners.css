@@ -1,0 +1,32 @@
+/* WillEdTech Brand · banners de sección de WillEdTech Campus (BRAND.md §11).
+ *
+ * Cada banner se inserta dos veces, en claro y en oscuro, y esta hoja muestra solo el del
+ * modo activo. Reconoce el modo oscuro de Moodle/Bootstrap 5.3 ([data-bs-theme="dark"]),
+ * el de Brand ([data-theme="dark"] o .dark) y, si la página no declara ninguno, el del
+ * sistema (prefers-color-scheme).
+ *
+ *   <p class="wt-banner">
+ *     <img class="wt-banner__claro" src=".../unidad-1-claro.png" alt="Unidad 1" width="1600" height="200">
+ *     <img class="wt-banner__oscuro" src=".../unidad-1-oscuro.png" alt="Unidad 1" width="1600" height="200">
+ *   </p>
+ *
+ * En Moodle va en el SCSS final del tema (o en Administración › Apariencia › Temas › SCSS sin
+ * procesar). Sin esta hoja se ven los dos banners, uno debajo del otro.
+ */
+.wt-banner { margin: 0 0 1rem; line-height: 0; }
+.wt-banner img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: .25rem .75rem .25rem .75rem; }
+.wt-banner .wt-banner__oscuro { display: none; }
+
+/* Modo oscuro declarado por la página */
+html[data-bs-theme="dark"] .wt-banner .wt-banner__claro,
+html[data-theme="dark"] .wt-banner .wt-banner__claro,
+html.dark .wt-banner .wt-banner__claro { display: none; }
+html[data-bs-theme="dark"] .wt-banner .wt-banner__oscuro,
+html[data-theme="dark"] .wt-banner .wt-banner__oscuro,
+html.dark .wt-banner .wt-banner__oscuro { display: block; }
+
+/* Sin modo declarado: sigue al sistema */
+@media (prefers-color-scheme: dark) {
+  html:not([data-bs-theme]):not([data-theme]):not(.dark) .wt-banner .wt-banner__claro { display: none; }
+  html:not([data-bs-theme]):not([data-theme]):not(.dark) .wt-banner .wt-banner__oscuro { display: block; }
+}

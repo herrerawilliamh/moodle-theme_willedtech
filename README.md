@@ -1,6 +1,6 @@
 # WillEdTech Campus · tema de Moodle
 
-Tema hijo de **Boost** que aplica la marca WillEdTech (Brand 3.2) al aula `campus.willedtech.io`.
+Tema hijo de **Boost** que aplica la marca WillEdTech (Brand 3.4) al aula `campus.willedtech.io`.
 Componente: `theme_willedtech`. Probado contra el código de Moodle 5.2 y pensado para 5.0 a 5.3.
 
 ## Qué hace
@@ -8,6 +8,7 @@ Componente: `theme_willedtech`. Probado contra el código de Moodle 5.2 y pensad
 - **Tokens:** `scss/willedtech-bootstrap.scss` traduce la marca a Bootstrap 5 (color, tipografía, radios y foco).
 - **Tipografías:** Merriweather Sans 800 y Atkinson Hyperlegible, autoalojadas (OFL, licencias en `fonts/`).
 - **Acabado:** radios asimétricos 1:3, respuesta al pulsar y foco visible; respeta el movimiento reducido.
+- **Banners de sección:** los 25 banners de Brand (§11) en claro y oscuro, en `pix/banners/`, y `style/banners.css` en el SCSS final. El docente pega en la descripción de la sección las dos imágenes (`wt-banner__claro` y `wt-banner__oscuro`) y el tema muestra solo la del modo activo (`html[data-bs-theme="dark"]`). Se enlazan con `/theme/willedtech/pix/banners/<tipo>-<modo>.png`; el HTML de cada uno se copia desde `banners.html` de Brand.
 - Todo lo demás (maquetación, plantillas, bloques, iconos, editor) se hereda de Boost sin cambios.
 
 ## Qué no hace
@@ -22,7 +23,7 @@ Componente: `theme_willedtech`. Probado contra el código de Moodle 5.2 y pensad
 4. *Página principal > Configuración*: nombre completo **WillEdTech Campus**, nombre corto **Campus**.
 
 ## Marca: cómo se actualiza
-Los archivos de `pix/`, `style/` y `scss/willedtech-bootstrap.scss` son copias de Brand registradas en `brand.lock.json`. **No se editan aquí.**
+Los archivos de `pix/` (incluido `pix/banners/`), `style/` y `scss/willedtech-bootstrap.scss` son copias de Brand registradas en `brand.lock.json`. **No se editan aquí.**
 
 ```
 node tools/brand-verify.mjs                         # la copia está íntegra

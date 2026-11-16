@@ -61,7 +61,9 @@ function theme_willedtech_get_extra_scss($theme) {
         . file_get_contents(__DIR__ . '/scss/admin.scss') . "\n"
         . file_get_contents(__DIR__ . '/scss/teacher.scss') . "\n"
         . file_get_contents(__DIR__ . '/scss/student.scss') . "\n"
-        . file_get_contents(__DIR__ . '/scss/course.scss');
+        . file_get_contents(__DIR__ . '/scss/course.scss') . "\n"
+        // Banners de sección (Brand §11): muestra solo el del modo activo, claro u oscuro.
+        . file_get_contents(__DIR__ . '/style/banners.css');
 }
 
 /**
